@@ -28,13 +28,14 @@ typedef struct {
   uint16_t scale;
 } s21_work_decimal;
 
-int is_overflow(s21_work_decimal);
-int pointleft(s21_work_decimal);
-int pointright(s21_work_decimal);
-int normalize(s21_work_decimal, const int summ, const int sign);
+s21_work_decimal initial_to_work(s21_decimal);
+s21_decimal work_to_initial(s21_work_decimal);
 
-s21_work_decimal decimal_to_work(s21_decimal);
-s21_decimal work_to_decimal(s21_work_decimal);
+int is_overflow(s21_work_decimal *value);
+int pointleft(s21_work_decimal *value);
+int pointright(s21_work_decimal *value);
+int normalize(s21_work_decimal, const int summ, const int sign);
+void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2);
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
