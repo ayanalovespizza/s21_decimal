@@ -1,7 +1,7 @@
 #include "s21_decimal.h"
 
 // перевод из исходного decimal в рабочий
-s21_work_decimal inital_to_work(s21_decimal decimal) {
+s21_work_decimal initial_to_work(s21_decimal decimal) {
   s21_work_decimal result;
   result.bits[0] = decimal.bits[0] & MAX4BITE;
   result.bits[1] = decimal.bits[1] & MAX4BITE;
@@ -10,7 +10,7 @@ s21_work_decimal inital_to_work(s21_decimal decimal) {
   result.bits[4] = 0;
   result.bits[5] = 0;
   result.bits[6] = 0;
-  result.scale = (decimal.bits[3] & SC) >> 16;
+  result.scale = (decimal.bits[3] & SCALE) >> 16;
 
   return result;
 }
@@ -30,7 +30,7 @@ s21_decimal work_to_initial(s21_work_decimal decimal) {
 // работа с переполнением
 int is_overflow(s21_work_decimal *value) {
   int overflow = 0;
-  int result;
+  int result = 0;
 
   for (int i = 0; i < 7; i++) {
     value->bits[i] += overflow;
@@ -38,7 +38,7 @@ int is_overflow(s21_work_decimal *value) {
     value->bits[i] &= MAX4BITE;
   }
 
-  if (overflow) result = 1;
+  if (overflow == 0) result = 1;
 
   return result;
 }
@@ -75,7 +75,7 @@ int pointright(s21_work_decimal *value) {
 }
 
 // нормализация расширенного decimal к исходному
-int normalize(s21_work_decimal, const int summ, const int sign) {}
+// int normalize(s21_work_decimal, const int summ, const int sign) {}
 
 // приравнивание scale
 void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {

@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000
-#define SC 0x00ff0000        // 00000000 11111111 00000000 00000000
+#define SCALE 0x00ff0000     // 00000000 11111111 00000000 00000000
 #define MAX4BITE 0xffffffff  // 11111111 11111111 11111111 11111111
 
 /*
@@ -19,7 +19,7 @@ bits[0], bits[1], и bits[2] содержат младшие, средние и 
 - бит 31 содержит знак: 0 означает положительный, 1 означает отрицательный
 */
 typedef struct {
-  int bits[4];
+  unsigned bits[4];
 } s21_decimal;
 
 // реализуем decimal через расширенный decimal
@@ -28,8 +28,8 @@ typedef struct {
   uint16_t scale;
 } s21_work_decimal;
 
-s21_work_decimal initial_to_work(s21_decimal);
-s21_decimal work_to_initial(s21_work_decimal);
+s21_work_decimal initial_to_work(s21_decimal decimal);
+s21_decimal work_to_initial(s21_work_decimal decimal);
 
 int is_overflow(s21_work_decimal *value);
 int pointleft(s21_work_decimal *value);
@@ -42,12 +42,12 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
-int s21_is_less(s21_decimal, s21_decimal);
-int s21_is_less_or_equal(s21_decimal, s21_decimal);
-int s21_is_greater(s21_decimal, s21_decimal);
-int s21_is_greater_or_equal(s21_decimal, s21_decimal);
-int s21_is_equal(s21_decimal, s21_decimal);
-int s21_is_not_equal(s21_decimal, s21_decimal);
+int s21_is_less(s21_decimal value_1, s21_decimal value_2);
+int s21_is_less_or_equal(s21_decimal value_1, s21_decimal value_2);
+int s21_is_greater(s21_decimal value_1, s21_decimal value_2);
+int s21_is_greater_or_equal(s21_decimal value_1, s21_decimal value_2);
+int s21_is_equal(s21_decimal value_1, s21_decimal value_2);
+int s21_is_not_equal(s21_decimal value_1, s21_decimal value_2);
 
 int s21_from_int_to_decimal(int src, s21_decimal *dst);
 int s21_from_float_to_decimal(float src, s21_decimal *dst);

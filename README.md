@@ -8,7 +8,7 @@
 
 ## Коротко об устройстве decimal чисел
 Картинка из экселя которая поможет лучше представить как устроены данные в Decimal
-![decimal_scheme](assets/decimal_scheme.png)
+![decimal_scheme](_assets/decimal_scheme.png)
 
 Decimal число может быть реализовано в виде четырехэлементного массива 32-разрядных целых чисел со знаком (`int bits[4];`).
 
