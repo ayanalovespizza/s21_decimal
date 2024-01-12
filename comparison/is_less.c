@@ -1,5 +1,10 @@
 #include "../s21_decimal.h"
 
+/**
+ * @brief Функция "меньше"
+ *
+ * @return 0 - FALSE 1 - TRUE
+ */
 int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
   int result = 1;
 
@@ -22,10 +27,10 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
 
     point_to_normal(&value_1_work, &value_2_work);
 
-    for (int i = 2; i >= 0; i--) {
+    for (int i = 6; i >= 0; i--) {
       if (value_1_work.bits[i] < value_2_work.bits[i])
         result = 1;
-      else if (value_1_work.bits[i] > value_2_work.bits[i])
+      else if (value_1_work.bits[i] >= value_2_work.bits[i])
         result = 0;
     }
 
@@ -33,7 +38,7 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
     if ((value_1.bits[3] & MINUS) && (value_2.bits[3] & MINUS)) {
       if (result == 1)
         result = 0;
-      else
+      else if (result == 0)
         result = 1;
     }
   }

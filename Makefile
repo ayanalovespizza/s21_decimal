@@ -15,7 +15,7 @@ main: s21_decimal.a
 	$(CC) $(FLAGS) main.c s21_decimal.a
 	./a.out
 
-test: 
+test: clean
 	$(CC) $(FLAGS) -c comparison/*.c --coverage
 #	$(CC) $(FLAGS) -c another/*.c --coverage
 #	$(CC) $(FLAGS) -c arithmetic/*.c --coverage
@@ -30,6 +30,6 @@ gcov_report: test
 	open coverage-html/index.html
 
 clean: 
-	rm -rf *.o s21_test *.gcda *.gcno coverage-html coverage.info s21_math.a
+	rm -rf *.o s21_test *.gcda *.gcno coverage-html coverage.info s21_decimal.a a.out
 
 rebuld: clean all

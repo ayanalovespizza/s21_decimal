@@ -4,7 +4,7 @@ int main() {
   int fail = 0;
 
   Suite *decimal_suite[] = {is_equal_suite(), is_not_equal_suite(),
-                            is_less_suite(), NULL};
+                            is_less_suite(), is_less_or_equal_suite(), NULL};
 
   for (int i = 0; decimal_suite[i] != NULL; i++) {  // (&& failed == 0)
     SRunner *decimal_runner = srunner_create(decimal_suite[i]);
@@ -15,7 +15,7 @@ int main() {
     fail += srunner_ntests_failed(decimal_runner);
     srunner_free(decimal_runner);
   }
-  printf("========= FAILED: %d =========\n", fail);
+  printf("\033[35m\n~~~~~~~~~ FAILED: %d ~~~~~~~~~\n\033[0m", fail);
 
   return fail == 0 ? 0 : 1;
 }

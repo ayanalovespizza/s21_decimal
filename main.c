@@ -25,7 +25,7 @@ int main() {
   //       decimal2.bits[0], decimal2.bits[1], decimal2.bits[2],
   //       decimal2.bits[3]);
 
-  int x = 8;
+  int x = MINUS;
 
   printf("%d\n", x);
   return 0;
