@@ -11,6 +11,9 @@ s21_decimal.a:
 	$(CC) $(FLAGS) -c extra.c
 	ar rc s21_decimal.a *.o
 
+main: s21_decimal.a
+	$(CC) $(FLAGS) main.c s21_decimal.a
+	./a.out
 
 test: 
 	$(CC) $(FLAGS) -c comparison/*.c --coverage
