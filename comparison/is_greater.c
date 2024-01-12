@@ -3,7 +3,8 @@
 /**
  * @brief Функция "больше"
  *
- * @return 0 - FALSE 1 - TRUE
+ * @return 0 - FALSE
+ *         1 - TRUE
  */
 int s21_is_greater(s21_decimal value_1, s21_decimal value_2) {
   int result = 0;
