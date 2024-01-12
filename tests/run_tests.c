@@ -3,8 +3,13 @@
 int main() {
   int fail = 0;
 
-  Suite *decimal_suite[] = {is_equal_suite(), is_not_equal_suite(),
-                            is_less_suite(), is_less_or_equal_suite(), NULL};
+  Suite *decimal_suite[] = {is_equal_suite(),
+                            is_not_equal_suite(),
+                            is_less_suite(),
+                            is_less_or_equal_suite(),
+                            is_greater_suite(),
+                            is_greater_or_equal_suite(),
+                            NULL};
 
   for (int i = 0; decimal_suite[i] != NULL; i++) {  // (&& failed == 0)
     SRunner *decimal_runner = srunner_create(decimal_suite[i]);

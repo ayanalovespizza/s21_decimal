@@ -156,7 +156,7 @@ START_TEST(is_less_test16) {
 END_TEST
 
 Suite *is_less_suite() {
-  Suite *s = suite_create("\033[35mIS LESS TESTS\033[0m");
+  Suite *s = suite_create("\033[35m< IS LESS TESTS\033[0m");
 
   TCase *is_less_tests = tcase_create("IS_LESS");
   suite_add_tcase(s, is_less_tests);

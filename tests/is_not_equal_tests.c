@@ -64,7 +64,7 @@ START_TEST(is_not_equal_test7) {
 END_TEST
 
 Suite *is_not_equal_suite() {
-  Suite *s = suite_create("\033[35mIS NOT EQUAL TESTS\033[0m");
+  Suite *s = suite_create("\033[35m!= IS NOT EQUAL TESTS\033[0m");
 
   TCase *is_not_equal_tests = tcase_create("IS_NOT_EQUAL");
   suite_add_tcase(s, is_not_equal_tests);

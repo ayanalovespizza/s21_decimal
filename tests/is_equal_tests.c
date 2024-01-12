@@ -151,7 +151,7 @@ START_TEST(is_equal_test14) {
 END_TEST
 
 Suite *is_equal_suite() {
-  Suite *s = suite_create("\033[35mIS EQUAL TESTS\033[0m");
+  Suite *s = suite_create("\033[35m== IS EQUAL TESTS\033[0m");
   TCase *is_equal_tests = tcase_create("IS_EQUAL");
   suite_add_tcase(s, is_equal_tests);
   tcase_add_test(is_equal_tests, is_equal_test1);

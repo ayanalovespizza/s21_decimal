@@ -1,5 +1,7 @@
 #include "s21_tests.h"
 
+// РАЗОБРАТЬ ТЕСТ 9
+
 // все нули v1 = v2
 START_TEST(is_less_or_equal_test1) {
   s21_decimal value_1 = {0x00000000, 0x00000000, 0x00000000, 0x00000000};
@@ -82,8 +84,8 @@ END_TEST
 
 // два отрицательных значения, результат инверсируется v2 < v1
 START_TEST(is_less_or_equal_test9) {
-  s21_decimal value_1 = {0x11111111, 0x00000000, 0x00000000, MINUS};
-  s21_decimal value_2 = {0x00000000, 0x11111111, 0x00000000, MINUS};
+  s21_decimal value_1 = {0x11111111, 0x00000000, 0x00000000, MINUS};  // -1
+  s21_decimal value_2 = {0x00000000, 0x11111111, 0x00000000, MINUS};  // -5
 
   ck_assert_int_eq(s21_is_less_or_equal(value_1, value_2), 1);  // correct  0
   ck_assert_int_eq(s21_is_less_or_equal(value_2, value_1), 0);  // correct 1
@@ -156,7 +158,7 @@ START_TEST(is_less_or_equal_test16) {
 END_TEST
 
 Suite *is_less_or_equal_suite() {
-  Suite *s = suite_create("\033[35mIS LESS OR EQUAL TESTS\033[0m");
+  Suite *s = suite_create("\033[35m<= IS LESS OR EQUAL TESTS\033[0m");
 
   TCase *is_less_or_equal_tests = tcase_create("IS_LESS_OR_EQUAL");
   suite_add_tcase(s, is_less_or_equal_tests);
