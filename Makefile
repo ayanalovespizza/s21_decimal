@@ -18,6 +18,7 @@ main: s21_decimal.a
 
 test: clean
 	$(CC) $(FLAGS) -c comparison/*.c --coverage
+	$(CC) $(FLAGS) -c another/negate.c --coverage
 #	$(CC) $(FLAGS) -c another/*.c --coverage
 #	$(CC) $(FLAGS) -c arithmetic/*.c --coverage
 #	$(CC) $(FLAGS) -c convertors/*.c --coverage
