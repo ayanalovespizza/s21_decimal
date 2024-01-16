@@ -12,5 +12,5 @@ Suite *is_less_suite(); // done
 Suite *is_less_or_equal_suite();
 Suite *is_greater_suite();
 Suite *is_greater_or_equal_suite();
-
+Suite *int_to_decimal();
 #endif
