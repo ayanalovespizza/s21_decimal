@@ -14,8 +14,7 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
 
     if(src <0){
 
-        dst->bits[3] = dst->bits[3] << 31;
-        dst->bits[3]|=1;
+        dst->bits[3] |=  (1<< 31);
         src*=-1;
     }
 
