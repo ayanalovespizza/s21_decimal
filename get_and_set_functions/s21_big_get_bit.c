@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../s21_decimal.h"
+
 int s21_big_get_bit(s21_work_decimal* value, int position_bit){
     int result = -1;
     int value_bit = 1;
@@ -11,3 +12,4 @@ int s21_big_get_bit(s21_work_decimal* value, int position_bit){
         result = value_bit>>position_bit;
     return result;
 }
+
