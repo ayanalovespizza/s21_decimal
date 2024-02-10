@@ -2,28 +2,38 @@
 
 // перевод из исходного decimal в рабочий
 s21_work_decimal initial_to_work(s21_decimal decimal) {
-  s21_work_decimal result;
-  result.bits[0] = decimal.bits[0] & MAX4BITE;
-  result.bits[1] = decimal.bits[1] & MAX4BITE;
-  result.bits[2] = decimal.bits[2] & MAX4BITE;
-  result.bits[3] = 0;
-  result.bits[4] = 0;
-  result.bits[5] = 0;
-  result.bits[6] = 0;
+  s21_work_decimal result = {0};
+  //s21_work_decimal result;
+  // result.bits[0] = decimal.bits[0] & MAX4BITE;// Объеденить в цикл, 
+  // result.bits[1] = decimal.bits[1] & MAX4BITE;
+  // result.bits[2] = decimal.bits[2] & MAX4BITE;
+  // result.bits[3] = 0;
+  // result.bits[4] = 0;
+  // result.bits[5] = 0;
+  // result.bits[6] = 0;
+  // result.scale = (decimal.bits[3] & SCALE) >> 16;
+  for(int i = 0;i<3;i++){
+  result.bits[i] =decimal.bits[i] & MAX4BITE;
+  }
   result.scale = (decimal.bits[3] & SCALE) >> 16;
-
+  result.sign = (decimal.bits[3] & MINUS) >> 16;
   return result;
 }
 
 // перевод из рабочего decimala в исходный
 s21_decimal work_to_initial(s21_work_decimal decimal) {
-  s21_decimal result;
-  result.bits[0] = decimal.bits[0] & MAX4BITE;
-  result.bits[1] = decimal.bits[1] & MAX4BITE;
-  result.bits[2] = decimal.bits[2] & MAX4BITE;
-  result.bits[3] = 0;
+  s21_decimal result = {0};
+  // s21_decimal result;
+  // result.bits[0] = decimal.bits[0] & MAX4BITE;
+  // result.bits[1] = decimal.bits[1] & MAX4BITE;
+  // result.bits[2] = decimal.bits[2] & MAX4BITE;
+  // result.bits[3] = 0;
+  // result.bits[3] |= (decimal.scale << 16);
+  for(int i = 0;i<3;i++){
+  result.bits[i] = decimal.bits[i] & MAX4BITE;
+  }
   result.bits[3] |= (decimal.scale << 16);
-
+  result.bits[3] |= (decimal.sign << 16);
   return result;
 }
 
@@ -86,4 +96,11 @@ void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {
     while (value_1->scale != value_2->scale && !pointleft(value_2))
       ;
   }
+}
+
+void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result){
+    unsigned memo = 0;
+    for(int i = 0; i <32*7;i++){
+
+    }
 }
