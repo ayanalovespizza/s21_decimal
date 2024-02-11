@@ -12,7 +12,6 @@ s21_work_decimal initial_to_work(s21_decimal decimal) {
   result.bits[5] = 0;
   result.bits[6] = 0;
   result.scale = (decimal.bits[3] & SCALE) >> 16;
-  result.scale = (decimal.bits[3] & SCALE) >> 16;
   result.sign = (decimal.bits[3] & MINUS) >> 16;
   return result;
 }
@@ -95,6 +94,8 @@ void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {
 void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result){
     unsigned memo = 0;
     for(int i = 0; i <32*6;i++){
-
+     unsigned  result_bit = s21_big_get_bit(value_1,i)+s21_big_get_bit(value_2,i)+memo;
+     memo = result_bit /2;
+     s21_big_set_bit(result,i,result_bit);
     }
 }

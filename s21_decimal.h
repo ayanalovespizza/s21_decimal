@@ -61,7 +61,7 @@ int s21_truncate(s21_decimal value, s21_decimal *res);
 int s21_negate(s21_decimal value, s21_decimal *res);
 
 
-int s21_big_get_bit(s21_work_decimal* value, int position_bit);
+int s21_big_get_bit(s21_work_decimal value, int position_bit);
 void s21_big_set_bit(s21_work_decimal* value,int position_bit,unsigned value_bit);
 void s21_set_sign(s21_decimal* value);
 void s21_big_set_sign(s21_work_decimal* value);
