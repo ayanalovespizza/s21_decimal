@@ -24,7 +24,7 @@ typedef struct {
 
 // реализуем decimal через расширенный decimal
 typedef struct {
-  uint64_t bits[8];
+  uint64_t bits[7];
   uint16_t scale;
   int sign;
 } s21_work_decimal;
@@ -67,4 +67,5 @@ void s21_set_sign(s21_decimal* value);
 void s21_big_set_sign(s21_work_decimal* value);
 
 void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
+void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
 #endif

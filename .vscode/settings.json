@@ -3,6 +3,7 @@
         "random": "c",
         "ratio": "c",
         "__locale": "c",
-        "functional": "c"
+        "functional": "c",
+        "s21_decimal.h": "c"
     }
 }
