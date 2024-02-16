@@ -23,6 +23,10 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   for(int i = 0; i<7;i++){
     extand_result.bits[i] = 0;
   }
+  //Зануление обычного результуруемого децимала
+  for(int i = 0; i<4;i++){
+    result->bits[i] = 0;
+  }
   //Cохранение знаков
   value_1_sign = extand_decimal_1.sign;
   value_2_sign = extand_decimal_2.sign;

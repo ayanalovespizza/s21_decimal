@@ -11,7 +11,7 @@ s21_work_decimal initial_to_work(s21_decimal decimal) {
   result.bits[5] = 0;
   result.bits[6] = 0;
   result.scale = (decimal.bits[3] & SCALE) >> 16;
-  result.sign = (decimal.bits[3] & MINUS) >> 16;
+  result.sign = (decimal.bits[3] & MINUS) >> 31;
   return result;
 }
 
