@@ -68,4 +68,5 @@ void s21_big_set_sign(s21_work_decimal* value);
 
 void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
 void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
+int is_less_mantiss(s21_work_decimal value_1, s21_work_decimal value_2);
 #endif
