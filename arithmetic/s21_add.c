@@ -19,7 +19,10 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   s21_work_decimal extand_result;
   unsigned int value_1_sign = 0;
   unsigned int value_2_sign = 0;
-  memset(extand_result,0, sizeof(s21_work_decimal));
+  //Зануление расширенного результуруемого децимала
+  for(int i = 0; i<7;i++){
+    extand_result.bits[i] = 0;
+  }
   //Cохранение знаков
   value_1_sign = extand_decimal_1.sign;
   value_2_sign = extand_decimal_2.sign;
@@ -75,4 +78,3 @@ void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_deci
      s21_big_set_bit(result,i,result_bit);
     }
 }
-
