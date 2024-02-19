@@ -1,4 +1,5 @@
 #include "../s21_decimal.h"
+#include "limits.h"
 
 /**
  * @brief Преобразователь из int в decimal
@@ -6,16 +7,21 @@
  * @return 0 - OK
  *         1 - ошибка конвертации
  */
+
+
 int s21_from_int_to_decimal(int src, s21_decimal *dst) {
     int temp_arr[32] = {0}; // массив для хранения 2 представления int
     int ost;
     int i = 0;
     int flag = 0;
 
-    if(src <0){
-
+    if(src <0 && src!= INT_MIN){
         dst->bits[3] |=  (1<< 31);
         src*=-1;
+    }else if( src == INT_MIN){
+        dst->bits[0] = 1 << 31;
+        dst->bits[3] = 1 << 31;
+        return 0;
     }
 
     int temp = src;
@@ -41,3 +47,6 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
 
     return flag;
 }
+
+
+

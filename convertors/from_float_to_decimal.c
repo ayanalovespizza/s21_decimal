@@ -26,8 +26,7 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
     int is_exp = 0;
     float res = 0;
     int arr[32] ={0};
-    int ost = 0;
-//    int count = 0 ;
+
     int i = 0 ;
 
     if(src <0){
@@ -39,8 +38,6 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
 
     sprintf(str,"%.7e",src);
 
-//    int num = get_num(str);
-//    int float_part = convert_float_to_int(str);
     for(int i= 2; str[i]!='\0';i++){
         if(str[i] == 'E' || str[i] == 'e'){
             is_exp = 1;
@@ -52,19 +49,27 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
             pos = i;
             break;
         }
-//       count++;
+
     }
 
     int scale = get_scale(str,pos);
 
-    if(sign_for_scale ==0) {
+    if(sign_for_scale == 0) {
+        res = src * pow(10, scale);
+//        res *= pow(10,(7-scale));
+    }else{
+        scale*=-1;
         res = src * pow(10, scale);
         res *= pow(10,(7-scale));
+        scale *= -1;
     }
+
+
+
 
     dst->bits[0] = (int)res;
 
-    if(scale> 0) {
+    if(scale != 0 ) {
         while (scale > 0) {
             arr[i++] = scale % 2;
             scale /= 2;
