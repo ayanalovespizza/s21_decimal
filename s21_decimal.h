@@ -2,6 +2,7 @@
 #define S21_DECIMAL_H
 
 #include <stdint.h>
+#include "tests/s21_tests.h"
 
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000
 #define SCALE 0x00ff0000     // 00000000 11111111 00000000 00000000
@@ -26,6 +27,7 @@ typedef struct {
 typedef struct {
   uint64_t bits[7];
   uint16_t scale;
+  int sign;
 } s21_work_decimal;
 
 s21_work_decimal initial_to_work(s21_decimal decimal);
@@ -54,9 +56,21 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst);
 int s21_from_decimal_to_int(s21_decimal src, int *dst);
 int s21_from_decimal_to_float(s21_decimal src, float *dst);
 
-int s21_floor(s21_decimal value, s21_decimal *result);
-int s21_round(s21_decimal value, s21_decimal *result);
-int s21_truncate(s21_decimal value, s21_decimal *result);
-int s21_negate(s21_decimal value, s21_decimal *result);
+int s21_floor(s21_decimal value, s21_decimal *res);
+int s21_round(s21_decimal value, s21_decimal *res);
+int s21_truncate(s21_decimal value, s21_decimal *res);
+int s21_negate(s21_decimal value, s21_decimal *res);
 
+
+int s21_big_get_bit(s21_work_decimal value, int position_bit);
+void s21_big_set_bit(s21_work_decimal* value,int position_bit,unsigned value_bit);
+void s21_set_sign(s21_decimal* value);
+void s21_big_set_sign(s21_work_decimal* value);
+
+void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
+void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
+int is_less_mantiss(s21_work_decimal value_1, s21_work_decimal value_2);
+
+void work_make_null(s21_work_decimal* value);
+void initial_make_null(s21_decimal* value);
 #endif

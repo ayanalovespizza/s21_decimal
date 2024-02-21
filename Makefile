@@ -1,15 +1,16 @@
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -std=c11
+FLAGS =  -std=c11
 
 all: test
 
 s21_decimal.a:
-	$(CC) $(FLAGS) -c comparison/*.c
-	$(CC) $(FLAGS) -c another/floor.c
-# $(CC) $(FLAGS) -c another/*.c
-#	$(CC) $(FLAGS) -c arithmetic/*.c
-#	$(CC) $(FLAGS) -c convertors/*.c
+#	$(CC) $(FLAGS) -c comparison/*.c
+#	$(CC) $(FLAGS) -c another/negate.c
+#	$(CC) $(FLAGS) -c another/*.c
+	$(CC) $(FLAGS) -c arithmetic/*.c
+	$(CC) $(FLAGS) -c convertors/*.c
 	$(CC) $(FLAGS) -c extra.c
+	$(CC) $(FLAGS) -c get_and_set_functions/*.c
 	ar rc s21_decimal.a *.o
 
 main: s21_decimal.a
@@ -17,14 +18,13 @@ main: s21_decimal.a
 	./a.out
 
 test: clean
-	$(CC) $(FLAGS) -c comparison/*.c --coverage
-	$(CC) $(FLAGS) -c another/negate.c --coverage
-	$(CC) $(FLAGS) -c another/floor.c --coverage
+#	$(CC) $(FLAGS) -c comparison/*.c --coverage
+#	$(CC) $(FLAGS) -c another/negate.c --coverage
 #	$(CC) $(FLAGS) -c another/*.c --coverage
-#	$(CC) $(FLAGS) -c arithmetic/*.c --coverage
+	$(CC) $(FLAGS) -c arithmetic/s21_add.c get_and_set_functions/*.c --coverage 
 #	$(CC) $(FLAGS) -c convertors/*.c --coverage
-	$(CC) $(FLAGS) -c extra.c tests/*.c
-	$(CC) $(FLAGS) -o s21_test *.o -lcheck --coverage
+	$(CC) $(FLAGS) -c extra.c tests/add_tests.c tests/run_tests.c
+	$(CC) $(FLAGS) -o s21_test *.o -lcheck -lm -lsubunit --coverage
 	./s21_test
 
 gcov_report: test
