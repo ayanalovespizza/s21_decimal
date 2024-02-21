@@ -1,6 +1,9 @@
 #include "../s21_decimal.h"
 #include <math.h>
 #include <stdio.h>
+
+#define MAX_SCALE 28
+
 /**
  * @brief преобразователь из floar в decimal
  *
@@ -14,84 +17,50 @@
  * @return 0 - OK
  *         1 - ошибка конвертации
  */
-// преобразователь из float в decimal
 
-int get_scale(char *str, int pos);
+
+
 
 int s21_from_float_to_decimal(float src, s21_decimal *dst) {
+    int status = 0; // Успешно
+    const float DECIMAL_MAX = powf(10, MAX_SCALE + 7); // Максимальное значение для float
+    const float MIN_POSITIVE = powf(10, -MAX_SCALE); // Минимальное положительное значение
 
-    char str[100];
-    int sign_for_scale = 0; // 0 означает + по умолчанию
-    int pos = 0;
-    int is_exp = 0;
-    float res = 0;
-    int arr[32] ={0};
+    // Обнуление dst
+    dst->bits[0] = dst->bits[1] = dst->bits[2] = dst->bits[3] = 0;
 
-    int i = 0 ;
-
-    if(src <0){
-        dst->bits[3] |= (1<< 31);
-        src*=-1;
-    }
-
-    float  test = src;
-
-    sprintf(str,"%.7e",src);
-
-    for(int i= 2; str[i]!='\0';i++){
-        if(str[i] == 'E' || str[i] == 'e'){
-            is_exp = 1;
+    if (fabsf(src) < MIN_POSITIVE && src != 0.0) {
+        // Слишком маленькое значение
+        status = 1;
+    } else if (fabsf(src) > DECIMAL_MAX || isinf(src)) {
+        // Слишком большое значение или бесконечность
+        status = 1;
+    } else {
+        // Округление до 7 значимых цифр
+        int scale = 0;
+        while (src != 0.0f && (fabsf(src) < 1e7 && scale < MAX_SCALE)) {
+            src *= 10;
+            scale++;
         }
-        if(str[i] == '-' && is_exp ==1){
-            sign_for_scale = 1;
-        }
-        if((str[i] >= '0' && str[i] <='9') && is_exp == 1){
-            pos = i;
-            break;
+        src = roundf(src);
+
+        while (fabsf(src) >= 1e7 && scale > 0) {
+            src /= 10;
+            scale--;
         }
 
-    }
+        long long intPart = (long long)src;
+        // Заполнение bits[0-2] и scale
+        dst->bits[0] = intPart & 0xFFFFFFFF; // Младшие 32 бита
+        dst->bits[1] = (intPart >> 32) & 0xFFFFFFFF; // Средние 32 бита
+        dst->bits[2] = 0;
 
-    int scale = get_scale(str,pos);
-
-    if(sign_for_scale == 0) {
-        res = src * pow(10, scale);
-//        res *= pow(10,(7-scale));
-    }else{
-        scale*=-1;
-        res = src * pow(10, scale);
-        res *= pow(10,(7-scale));
-        scale *= -1;
-    }
-
-
-
-
-    dst->bits[0] = (int)res;
-
-    if(scale != 0 ) {
-        while (scale > 0) {
-            arr[i++] = scale % 2;
-            scale /= 2;
-        }
-
-
-        for (int j = 0; j < i; j++) {
-            dst->bits[3] &= ~(1 << (16 + j));
-            dst->bits[3] |= (arr[j] << (16 + j));
+        // Установка масштаба и знака
+        dst->bits[3] = scale << 16; // Масштаб
+        if (src < 0) {
+            dst->bits[3] |= 0x80000000; // Знак
         }
     }
 
-    return 0;
-
-}
-
-int get_scale(char *str, int pos){
-    int num = 0;
-    for(int i = pos; str[i] != '\0' ;i++){
-        if(str[i] >='0' && str[i] <= '9'){
-            num = num *10 + (str[i] - '0');
-        }
-    }
-    return num;
+    return status;
 }
