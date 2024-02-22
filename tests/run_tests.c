@@ -11,6 +11,8 @@ int main() {
                             is_greater_or_equal_suite(),
                             negate_suite(),
                             floor_suite(),
+                            truncate_suite(),
+                            round_suite(),
                             NULL};
 
   for (int i = 0; decimal_suite[i] != NULL; i++) {  // (&& failed == 0)

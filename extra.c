@@ -2,7 +2,7 @@
 
 // перевод из исходного decimal в рабочий
 s21_work_decimal initial_to_work(s21_decimal decimal) {
-  s21_work_decimal result;
+  s21_work_decimal result = {0};
   result.bits[0] = decimal.bits[0] & MAX4BITE;
   result.bits[1] = decimal.bits[1] & MAX4BITE;
   result.bits[2] = decimal.bits[2] & MAX4BITE;
@@ -17,7 +17,7 @@ s21_work_decimal initial_to_work(s21_decimal decimal) {
 
 // перевод из рабочего decimala в исходный
 s21_decimal work_to_initial(s21_work_decimal decimal) {
-  s21_decimal result;
+  s21_decimal result = {0};
   result.bits[0] = decimal.bits[0] & MAX4BITE;
   result.bits[1] = decimal.bits[1] & MAX4BITE;
   result.bits[2] = decimal.bits[2] & MAX4BITE;

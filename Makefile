@@ -5,10 +5,9 @@ all: test
 
 s21_decimal.a:
 	$(CC) $(FLAGS) -c comparison/*.c
-	$(CC) $(FLAGS) -c another/floor.c
-# $(CC) $(FLAGS) -c another/*.c
+	$(CC) $(FLAGS) -c another/*.c
 #	$(CC) $(FLAGS) -c arithmetic/*.c
-#	$(CC) $(FLAGS) -c convertors/*.c
+#	$(CC) $(FLAGS) -c convertors/*.c 
 	$(CC) $(FLAGS) -c extra.c
 	ar rc s21_decimal.a *.o
 
@@ -18,13 +17,11 @@ main: s21_decimal.a
 
 test: clean
 	$(CC) $(FLAGS) -c comparison/*.c --coverage
-	$(CC) $(FLAGS) -c another/negate.c --coverage
-	$(CC) $(FLAGS) -c another/floor.c --coverage
-#	$(CC) $(FLAGS) -c another/*.c --coverage
+	$(CC) $(FLAGS) -c another/*.c --coverage
 #	$(CC) $(FLAGS) -c arithmetic/*.c --coverage
 #	$(CC) $(FLAGS) -c convertors/*.c --coverage
 	$(CC) $(FLAGS) -c extra.c tests/*.c
-	$(CC) $(FLAGS) -o s21_test *.o -lcheck --coverage
+	$(CC) $(FLAGS) -o s21_test *.o -lcheck --coverage 
 	./s21_test
 
 gcov_report: test
