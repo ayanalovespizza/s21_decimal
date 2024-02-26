@@ -32,15 +32,12 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   }else{
     extand_result.scale = extand_decimal_1.scale;
   }
-  //Нормализация чисел для арифметики
-   point_to_normal(&extand_decimal_1,&extand_decimal_2);
-  //   for(int i = 0;i<7;i++){
-  //   printf("extand_1= %lx\n",extand_decimal_1.bits[i]);
-  //  }
-  //     printf("-----------------\n");
-  //   for(int i = 0;i<32*6;i++){
-  //   printf("bit %d = %d\n",i,s21_big_get_bit(extand_decimal_1,i));
-  //  }
+  //Наша нормализация чисел для арифметики
+   //point_to_normal(&extand_decimal_1,&extand_decimal_2);
+
+  //Ирины нормализация чисел для арифметики
+   s21_normalized_scales_decimal(&extand_decimal_1,&extand_decimal_2,0);
+
   //Арифметика в зависмости от знаков
    if(value_1_sign == value_2_sign){
     bitwise_add(extand_decimal_1,extand_decimal_2,&extand_result);
