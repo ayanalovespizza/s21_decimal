@@ -2,28 +2,25 @@
 
 // перевод из исходного decimal в рабочий
 s21_work_decimal initial_to_work(s21_decimal decimal) {
-  s21_work_decimal result = {0};
-  result.bits[0] = decimal.bits[0] & MAX4BITE;
+  s21_work_decimal result;
+  work_make_null(&result);
+  result.bits[0] = decimal.bits[0] & MAX4BITE;// Объеденить в цикл
   result.bits[1] = decimal.bits[1] & MAX4BITE;
   result.bits[2] = decimal.bits[2] & MAX4BITE;
-  result.bits[3] = 0;
-  result.bits[4] = 0;
-  result.bits[5] = 0;
-  result.bits[6] = 0;
   result.scale = (decimal.bits[3] & SCALE) >> 16;
-
+  result.sign = (decimal.bits[3] & MINUS) >> 31;
   return result;
 }
 
 // перевод из рабочего decimala в исходный
 s21_decimal work_to_initial(s21_work_decimal decimal) {
-  s21_decimal result = {0};
-  result.bits[0] = decimal.bits[0] & MAX4BITE;
+  s21_decimal result;
+  initial_make_null(&result);
+  result.bits[0] = decimal.bits[0] & MAX4BITE;// Объеденить в цикл
   result.bits[1] = decimal.bits[1] & MAX4BITE;
   result.bits[2] = decimal.bits[2] & MAX4BITE;
-  result.bits[3] = 0;
   result.bits[3] |= (decimal.scale << 16);
-
+  result.bits[3] |= (decimal.sign << 16);
   return result;
 }
 
@@ -87,3 +84,40 @@ void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {
       ;
   }
 }
+
+//Сравнение мантис расширенного децимала
+//Если res = 0, то мантиса первого числа не меньше 
+//Если res = 1, то мантиса первого меньше 
+int is_less_mantiss(s21_work_decimal value_1, s21_work_decimal value_2){
+int res = 0; 
+for(int i = 6; i<=0;i--){
+  if((unsigned)value_1.bits[i]<(unsigned)value_2.bits[i]){
+    res = 1;
+    break;
+  }
+}
+return res;
+}
+
+//функция обнуления расширенного децимала
+void work_make_null(s21_work_decimal* value){
+ for(int i = 0; i<7;i++){
+    value->bits[i] = 0;
+  }
+}
+//функция обнуления обычного децимала
+void initial_make_null(s21_decimal* value){
+ for(int i = 0; i<4;i++){
+    value->bits[i] = 0;
+  }
+} 
+// void normalize_big(s21_work_decimal *bvalue_1, s21_work_decimal *bvalue_2) {
+//   int def = bvalue_1->scale - bvalue_2->scale;
+//   if (def > 0) {
+//     multiply_10_mantis_big(bvalue_2, def);
+//     zeroes_left_big(bvalue_2);
+//   } else if (def < 0) {
+//     multiply_10_mantis_big(bvalue_1, -def);
+//     zeroes_left_big(bvalue_1);
+//   }
+// }
