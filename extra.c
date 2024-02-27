@@ -38,7 +38,7 @@ int is_overflow(s21_work_decimal *value) {
     value->bits[i] &= MAX4BITE;
   }
 
-  if (overflow == 0) result = 1;
+  if (overflow) result = 1;
 
   return result;
 }

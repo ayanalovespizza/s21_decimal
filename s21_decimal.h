@@ -1,7 +1,9 @@
 #ifndef S21_DECIMAL_H
 #define S21_DECIMAL_H
 
+#include <math.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000
 #define SCALE 0x00ff0000     // 00000000 11111111 00000000 00000000
