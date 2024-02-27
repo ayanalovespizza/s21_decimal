@@ -4,9 +4,12 @@
 
 int main() {
   s21_decimal result; 
-  s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-  // -7922816251426433759354395033.5
-  s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80010000}};
+  // 7.9228162514264337593543950335
+  s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x1C0000}};
+  // 3.6336660283201536
+  s21_decimal decimal2 = {{0x811800, 0x811800, 0x0, 0x100000}};
+  // 11.556482279746587359354395034
+  s21_decimal check = {{0xA759999A, 0xB3174C4F, 0x25574C4F, 0x1B0000}};
   s21_add(decimal1, decimal2, &result);
   for(int i=0;i<4;i++){
   printf("%x\n",result.bits[i]);

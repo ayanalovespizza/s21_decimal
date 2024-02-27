@@ -19,6 +19,7 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   s21_work_decimal extand_result;
   unsigned int value_1_sign = 0;
   unsigned int value_2_sign = 0;
+  s21_decimal result_before;
   //Зануление расширенного результуруемого децимала
   work_make_null(&extand_result);
   //Зануление обычного результуруемого децимала
@@ -33,10 +34,7 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
     extand_result.scale = extand_decimal_1.scale;
   }
   //Наша нормализация чисел для арифметики
-   //point_to_normal(&extand_decimal_1,&extand_decimal_2);
-
-  //Ирины нормализация чисел для арифметики
-   s21_normalized_scales_decimal(&extand_decimal_1,&extand_decimal_2,0);
+   point_to_normal(&extand_decimal_1,&extand_decimal_2);
 
   //Арифметика в зависмости от знаков
    if(value_1_sign == value_2_sign){

@@ -35,7 +35,7 @@ int is_overflow(s21_work_decimal *value) {
     value->bits[i] &= MAX4BITE;
   }
 
-  if (overflow == 0) result = 1;
+  if (overflow) result = 1;
 
   return result;
 }
@@ -112,73 +112,3 @@ void initial_make_null(s21_decimal* value){
   }
 } 
 
-
-// Функции Ирины для фулл работы нормализация чисел для арифметики
-void s21_normalized_scales_decimal(s21_work_decimal *a, s21_work_decimal *b,
-                                   int overflow) {
-  int scale_diff = (int)a->scale - (int)b->scale;
-  s21_work_decimal *rescalable = scale_diff > 0 ? b : a;
-  s21_increase_scale_with_check(rescalable, abs(scale_diff), overflow);
-}
-
-void s21_increase_scale(s21_work_decimal *c, int diff) {
-  c->scale += diff;
-  while (diff > 0) {
-    uint64_t carry = 0;
-    for (int i = 0; i < 6; i++) {
-      uint64_t sum = c->bits[i] * 10 + carry;
-      c->bits[i] = sum & MAX4BITE;
-      carry = sum >> 32;
-    }
-    diff--;
-  }
-}
-
-void s21_increase_scale_with_check(s21_work_decimal *c, int diff,
-                                   int check_overflow) {
-  c->scale += diff;
-  int local_diff = diff;
-
-  while (diff > 0) {
-    uint64_t carry = 0;
-    for (int i = 0; i < 6; i++) {
-      uint64_t sum = c->bits[i] * 10 + carry;
-      c->bits[i] = sum & MAX4BITE;
-      carry = sum >> 32;
-    }
-    diff--;
-    local_diff--;
-
-    if (check_overflow && s21_overflow(*c)) {
-      diff = 0;
-      s21_big_div_ten(c);
-      local_diff++;
-    }
-  }
-  if (check_overflow) c->scale -= local_diff;
-}
-
-int s21_overflow(s21_work_decimal c) { return c.bits[3] || c.bits[4] || c.bits[5]; }
-
-
-int s21_big_div_ten(s21_work_decimal *value) {
-  int error = 0;
-  unsigned long long residue = 0;  // остаток от деления
-  unsigned long long x = 0;
-  for (int i = 5; i >= 0; --i) {
-    x = value->bits[i];
-    x += (residue << 32);  // сдвигаем остаток на 64 бита
-    residue = x % 10;
-    x /= 10;
-    value->bits[i] = x;
-  }
-  return error;
-}
-
-int s21_is_even(s21_decimal num) {
-  int res = 0;
-
-  if ((num.bits[0] & 1) == 0) res = 1;
-
-  return res;
-}

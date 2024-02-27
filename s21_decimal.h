@@ -73,14 +73,5 @@ int is_less_mantiss(s21_work_decimal value_1, s21_work_decimal value_2);
 
 void work_make_null(s21_work_decimal* value);
 void initial_make_null(s21_decimal* value);
-
-
-void s21_normalized_scales_decimal(s21_work_decimal *a, s21_work_decimal *b,
-                                   int overflow);
-void s21_increase_scale(s21_work_decimal *c, int diff);                                  
-void s21_increase_scale_with_check(s21_work_decimal *c, int diff,
-                                   int check_overflow);
-int s21_big_div_ten(s21_work_decimal *value);
-int s21_is_even(s21_decimal num);
-int s21_overflow(s21_work_decimal c);
 #endif
+
