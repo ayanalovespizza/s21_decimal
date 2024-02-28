@@ -1,5 +1,12 @@
 #include "../s21_decimal.h"
 
+void s21_normalized_scales_decimal(s21_work_decimal *a, s21_work_decimal *b,
+                                   int overflow);
+void s21_increase_scale_with_check(s21_work_decimal *c, int diff,
+                                   int check_overflow);
+int s21_big_div_ten(s21_work_decimal *value);
+int s21_overflow(s21_work_decimal c);
+
 /**
  * @brief Функция "равно"
  *
@@ -20,10 +27,6 @@ int s21_is_equal(s21_decimal value_1, s21_decimal value_2) {
 
   // если знаки разные, то числа сразу не равны
   else if ((value_1.bits[3] & MINUS) != (value_2.bits[3] & MINUS))
-    result = 0;
-
-  // если степени не равны, то числа сразу не равны
-  else if ((value_1.bits[3] & SCALE) != (value_2.bits[3] & SCALE))
     result = 0;
 
   // если прошлые проверки прошли, то начинаем сравнить биты

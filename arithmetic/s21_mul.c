@@ -10,4 +10,7 @@
  *         1 - число слишком велико или равно бесконечности
  *         2 - число слишком мало или равно отрицательной бесконечности
  */
-int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {}
+int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
+
+
+}

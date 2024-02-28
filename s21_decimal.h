@@ -1,7 +1,9 @@
 #ifndef S21_DECIMAL_H
 #define S21_DECIMAL_H
 
+#include <math.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000
 #define SCALE 0x00ff0000     // 00000000 11111111 00000000 00000000
@@ -54,9 +56,9 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst);
 int s21_from_decimal_to_int(s21_decimal src, int *dst);
 int s21_from_decimal_to_float(s21_decimal src, float *dst);
 
-int s21_floor(s21_decimal value, s21_decimal *res);
-int s21_round(s21_decimal value, s21_decimal *res);
-int s21_truncate(s21_decimal value, s21_decimal *res);
-int s21_negate(s21_decimal value, s21_decimal *res);
+int s21_floor(s21_decimal value, s21_decimal *result);
+int s21_round(s21_decimal value, s21_decimal *result);
+int s21_truncate(s21_decimal value, s21_decimal *result);
+int s21_negate(s21_decimal value, s21_decimal *result);
 
 #endif
