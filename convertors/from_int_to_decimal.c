@@ -1,5 +1,8 @@
 #include "../s21_decimal.h"
 #include "limits.h"
+#include <stdio.h>
+#include <math.h>
+
 
 /**
  * @brief Преобразователь из int в decimal
