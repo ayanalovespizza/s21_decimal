@@ -312,6 +312,105 @@ START_TEST(negate_test25) {
   ck_assert_int_eq(s21_is_equal(result, decimal_check), 1);
 }
 
+START_TEST(fail_negate_test1) {
+  // 792281625.14264337593543950335
+  s21_decimal decimal = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+
+  int code = s21_negate(decimal, NULL);
+
+  ck_assert_int_eq(code, 1);
+}
+
+START_TEST(fail_negate_test2) {
+  // степень 154 (показатель степени должен быть от 0 до 28)
+  // биты 0-15 не нули
+  // биты 24-30 не нули
+  s21_decimal decimal = {{0, 0, 0, 1000000000}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(fail_negate_test3) {
+  // степень 29 (показатель степени должен быть от 0 до 28)
+  s21_decimal decimal = {{-1, 0, 0, 0x1D0000}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(fail_negate_test4) {
+  // степень 29 (показатель степени должен быть от 0 до 28)
+  s21_decimal decimal = {{0, 0, 0, 0x1D0000}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(fail_negate_test5) {
+  // степень 28 (что корректно), но биты 0-15 не нули (младший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x1C0001}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(fail_negate_test6) {
+  // степень 28 (что корректно), но биты 0-15 не нули (старший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x1C8000}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(fail_negate_test7) {
+  // степень 28 (что корректно), но биты 24-30 не нули (младший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x11C0000}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(fail_negate_test8) {
+  // степень 28 (что корректно), но биты 24-30 не нули (старший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x401C0000}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(fail_negate_test9) {
+  // Просто все единицы
+  s21_decimal decimal = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
+  s21_decimal result;
+
+  int code = s21_negate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
 Suite *negate_suite() {
   Suite *s = suite_create("\033[35mNEGATE TESTS\033[0m");
 
@@ -342,6 +441,16 @@ Suite *negate_suite() {
   tcase_add_test(negate_tests, negate_test23);
   tcase_add_test(negate_tests, negate_test24);
   tcase_add_test(negate_tests, negate_test25);
+
+  tcase_add_test(negate_tests, fail_negate_test1);
+  tcase_add_test(negate_tests, fail_negate_test2);
+  tcase_add_test(negate_tests, fail_negate_test3);
+  tcase_add_test(negate_tests, fail_negate_test4);
+  tcase_add_test(negate_tests, fail_negate_test5);
+  tcase_add_test(negate_tests, fail_negate_test6);
+  tcase_add_test(negate_tests, fail_negate_test7);
+  tcase_add_test(negate_tests, fail_negate_test8);
+  tcase_add_test(negate_tests, fail_negate_test9);
 
   return s;
 }

@@ -428,6 +428,105 @@ START_TEST(truncate_test46) {
   tests_truncate(decimal, decimal_check);
 }
 
+START_TEST(tests_truncate_fail1) {
+  // 792281625.14264337593543950335
+  s21_decimal decimal = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+
+  int code = s21_truncate(decimal, NULL);
+
+  ck_assert_int_eq(code, 1);
+}
+
+START_TEST(tests_truncate_fail2) {
+  // степень 154 (показатель степени должен быть от 0 до 28)
+  // биты 0-15 не нули
+  // биты 24-30 не нули
+  s21_decimal decimal = {{0, 0, 0, 1000000000}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(tests_truncate_fail3) {
+  // степень 29 (показатель степени должен быть от 0 до 28)
+  s21_decimal decimal = {{-1, 0, 0, 0x1D0000}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(tests_truncate_fail4) {
+  // степень 29 (показатель степени должен быть от 0 до 28)
+  s21_decimal decimal = {{0, 0, 0, 0x1D0000}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(tests_truncate_fail5) {
+  // степень 28 (что корректно), но биты 0-15 не нули (младший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x1C0001}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(tests_truncate_fail6) {
+  // степень 28 (что корректно), но биты 0-15 не нули (старший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x1C8000}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(tests_truncate_fail7) {
+  // степень 28 (что корректно), но биты 24-30 не нули (младший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x11C0000}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(tests_truncate_fail8) {
+  // степень 28 (что корректно), но биты 24-30 не нули (старший бит)
+  s21_decimal decimal = {{-1, 0, 0, 0x401C0000}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
+START_TEST(tests_truncate_fail9) {
+  // Просто все единицы
+  s21_decimal decimal = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
+  s21_decimal result;
+
+  int code = s21_truncate(decimal, &result);
+
+  ck_assert_int_eq(code, 1);
+}
+END_TEST
+
 Suite *truncate_suite() {
   Suite *s = suite_create("\033[35mTRUNCATE TESTS\033[0m");
   TCase *truncate_tests = tcase_create("TRUNCATE");
@@ -478,6 +577,16 @@ Suite *truncate_suite() {
   tcase_add_test(truncate_tests, truncate_test44);
   tcase_add_test(truncate_tests, truncate_test45);
   tcase_add_test(truncate_tests, truncate_test46);
+
+  tcase_add_test(truncate_tests, tests_truncate_fail1);
+  tcase_add_test(truncate_tests, tests_truncate_fail2);
+  tcase_add_test(truncate_tests, tests_truncate_fail3);
+  tcase_add_test(truncate_tests, tests_truncate_fail4);
+  tcase_add_test(truncate_tests, tests_truncate_fail5);
+  tcase_add_test(truncate_tests, tests_truncate_fail6);
+  tcase_add_test(truncate_tests, tests_truncate_fail7);
+  tcase_add_test(truncate_tests, tests_truncate_fail8);
+  tcase_add_test(truncate_tests, tests_truncate_fail9);
 
   return s;
 }
