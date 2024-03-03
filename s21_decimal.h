@@ -8,6 +8,8 @@
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000
 #define SCALE 0x00ff0000     // 00000000 11111111 00000000 00000000
 #define MAX4BITE 0xffffffff  // 11111111 11111111 11111111 11111111
+#define BIT_IS_NULL 0x000000000
+#define INCORRECT 0b01111111000000001111111111111111
 
 /*
 bits[0], bits[1], и bits[2] содержат младшие, средние и старшие 32 бита
@@ -38,6 +40,7 @@ int pointleft(s21_work_decimal *value);
 int pointright(s21_work_decimal *value);
 int normalize(s21_work_decimal, const int summ, const int sign);
 void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2);
+int s21_correct_decimal(s21_decimal dst);
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);

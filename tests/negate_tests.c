@@ -26,9 +26,9 @@ END_TEST
 
 // максимальное число (все единички) с отрицательным знаком 1 -> 0
 START_TEST(negate_test3) {
-  s21_decimal value1 = {0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff};
+  s21_decimal value1 = {0xffffffff, 0xffffffff, 0xffffffff, 0x80000000};
   s21_decimal result = {0x00000000, 0x00000000, 0x00000000, 0x00000000};
-  s21_decimal expected_res = {0xffffffff, 0xffffffff, 0xffffffff, 0x7fffffff};
+  s21_decimal expected_res = {0xffffffff, 0xffffffff, 0xffffffff, 0x00000000};
 
   s21_negate(value1, &result);
 
@@ -38,9 +38,9 @@ END_TEST
 
 // максимальное число (все единички) 0 -> 1
 START_TEST(negate_test4) {
-  s21_decimal value1 = {0xffffffff, 0xffffffff, 0xffffffff, 0x7fffffff};
+  s21_decimal value1 = {0xffffffff, 0xffffffff, 0xffffffff, 0x00000000};
   s21_decimal result = {0x00000000, 0x00000000, 0x00000000, 0x00000000};
-  s21_decimal expected_res = {0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff};
+  s21_decimal expected_res = {0xffffffff, 0xffffffff, 0xffffffff, 0x80000000};
 
   s21_negate(value1, &result);
 

@@ -3,24 +3,26 @@
 #include "s21_decimal.h"
 
 int main() {
-  s21_decimal decimal1 = {0x00000000, 0x00000000, 0x00000000, 0x00000000};
-  s21_decimal decimal2 = {0x00000000, 0x00000000, 0x00000000, 0x00000000};
+  s21_decimal res = {0x00000000, 0x00000000, 0x00000000, 0x00000000};
+  s21_decimal decimal_check = {{0x22D9F0, 0x0, 0x0, 0x190000}};
 
-  s21_negate(decimal1, &decimal2);
-
-  printf(
-      "Бит[0]: %d\n\
-Бит[1]: %d\n\
-Бит[2]: %d\n\
-Бит[3] aka степень: %d\n\n",
-      decimal1.bits[0], decimal1.bits[1], decimal1.bits[2], decimal1.bits[3]);
+  float f = 2.28401628E-19;
+  s21_from_float_to_decimal(f, &res);
 
   printf(
       "Бит[0]: %d\n\
 Бит[1]: %d\n\
 Бит[2]: %d\n\
-Бит[3] aka степень: %d\n",
-      decimal2.bits[0], decimal2.bits[1], decimal2.bits[2], decimal2.bits[3]);
+Бит[3] aka степень: %x\n\n",
+      decimal_check.bits[0], decimal_check.bits[1], decimal_check.bits[2],
+      decimal_check.bits[3]);
+
+  printf(
+      "Бит[0]: %d\n\
+Бит[1]: %d\n\
+Бит[2]: %d\n\
+Бит[3] aka степень: %x\n",
+      res.bits[0], res.bits[1], res.bits[2], res.bits[3]);
 
   return 0;
 }

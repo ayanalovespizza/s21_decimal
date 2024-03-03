@@ -19,7 +19,7 @@ test: clean
 	$(CC) $(FLAGS) -c comparison/*.c --coverage
 	$(CC) $(FLAGS) -c another/*.c --coverage
 #	$(CC) $(FLAGS) -c arithmetic/*.c --coverage
-#	$(CC) $(FLAGS) -c convertors/*.c --coverage
+# $(CC) $(FLAGS) -c convertors/*.c --coverage
 	$(CC) $(FLAGS) -c extra.c tests/*.c
 	$(CC) $(FLAGS) -o s21_test *.o -lcheck --coverage 
 	./s21_test

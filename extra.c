@@ -87,3 +87,18 @@ void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {
       ;
   }
 }
+
+int s21_correct_decimal(s21_decimal dst) {
+  int flag_error = 1;
+  int scale = (dst.bits[3] & SCALE) >> 16;
+
+  if (BIT_IS_NULL != (dst.bits[3] &= INCORRECT)) {
+    flag_error = 0;
+  }
+
+  if (scale < 0 || scale > 28) {
+    flag_error = 0;
+  }
+
+  return flag_error;
+}
