@@ -35,20 +35,30 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   }
   //Наша нормализация чисел для арифметики
    point_to_normal(&extand_decimal_1,&extand_decimal_2);
-
+    printf("value_1\n");
+    for(int i =0;i<7;i++){
+        printf("%llx\n",extand_decimal_1.bits[i]);
+    }
+    printf("value_2\n");
+    for(int i =0;i<7;i++){
+        printf("%llx\n",extand_decimal_2.bits[i]);
+    }
   //Арифметика в зависмости от знаков
    if(value_1_sign == value_2_sign){
     bitwise_add(extand_decimal_1,extand_decimal_2,&extand_result);
     extand_result.sign = value_1_sign;
    }//Сравниваем мантисы
-   else if(is_less_mantiss(extand_decimal_1, extand_decimal_2)){
+   else if(is_less_mantis(extand_decimal_1, extand_decimal_2)){
     bitwise_sub(extand_decimal_2,extand_decimal_1,&extand_result);
     extand_result.sign = value_2_sign;
+       printf("hui\n");
    }
    else{
     bitwise_sub(extand_decimal_1,extand_decimal_2,&extand_result);
     extand_result.sign = value_1_sign;
    }
+   //work_bank_round(&extand_result);
+    tidy_work_decimal(&extand_result);
   //Перевод результата арифметики расширенного децимала и проверка ошибок
    *result = work_to_initial(extand_result);
     return status;
