@@ -8,17 +8,14 @@
  *         1 - ошибка вычисления
  */
 int s21_floor(s21_decimal value, s21_decimal *result) {
+  if (!s21_correct_decimal(value)) return 1;
+
   // перевод в расширенный децимал
   s21_work_decimal work_decimal = initial_to_work(value);
 
   // переменные для сохранения значения степени и дробной части
   int scale = 0, remainder = 0;
-
-  // если степень больше 28, то сохраняем ее как 28
-  if (work_decimal.scale > 28)
-    scale = 28;
-  else
-    scale = work_decimal.scale;
+  scale = work_decimal.scale;
 
   // уменьшаем scale, сохраняем остаток
   for (int i = 0; i < scale; i++) remainder += pointright(&work_decimal);

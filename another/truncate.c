@@ -8,6 +8,8 @@
  *         1 - ошибка вычисления
  */
 int s21_truncate(s21_decimal value, s21_decimal *result) {
+  if (!s21_correct_decimal(value)) return 1;
+
   // сохраняем знак децимал числа
   int sign = value.bits[3] & MINUS;
   // установка 0 на позицию знака в bits[3]
