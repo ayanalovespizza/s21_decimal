@@ -4,6 +4,7 @@
 #include <math.h>
 
 
+
 /**
  * @brief Преобразователь из int в decimal
  *
@@ -11,43 +12,27 @@
  *         1 - ошибка конвертации
  */
 
-
 int s21_from_int_to_decimal(int src, s21_decimal *dst) {
-    int temp_arr[32] = {0}; // массив для хранения 2 представления int
-    int ost;
-    int i = 0;
-    int flag = 0;
-
-    if(src <0 && src!= INT_MIN){
-        dst->bits[3] |=  (1<< 31);
-        src*=-1;
-    }else if( src == INT_MIN){
-        dst->bits[0] = 1u << 31;
-        dst->bits[3] = 1u << 31;
-        return 0;
+    if (dst == NULL) {
+        return 1;
     }
 
-    int temp = src;
+    // Обнуление всех битов в dst
+    dst->bits[0] = 0;
+    dst->bits[1] = 0;
+    dst->bits[2] = 0;
+    dst->bits[3] = 0;
 
-    while(temp > 0){ // конвертируем 10 в 2
-        ost = temp % 2;
-        temp_arr[i] = ost;
-        i++;
-        temp = temp / 2;
+    if (src < 0) {
+        dst->bits[3] |= 1u << 31;
+        if (src == INT_MIN) {
+            dst->bits[0] = 1u << 31;
+            return 0;
+        }
+        src = -src;
     }
 
-    for(int j = 0; j<i; j++){
+    dst->bits[0] = src;
 
-        temp_arr[j] = temp_arr[j]<<j;
-        dst->bits[0] |= temp_arr[j];
-    }
-
-
-
-
-
-    return flag;
+    return 0;
 }
-
-
-

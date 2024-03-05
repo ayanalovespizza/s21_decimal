@@ -1,37 +1,50 @@
 #include "../s21_decimal.h"
+//#include "stdio.h"
 
-/**
- * @brief Преобразователь из decimal в int
- *
- * @warning Если в числе типа decimal есть дробная часть, то ее следует
- *          отбросить (0,9 => 0)
- *
- * @return 0 - OK
- *         1 - ошибка конвертации
- */
+///**
+// * @brief Преобразователь из decimal в int
+// *
+// * @warning Если в числе типа decimal есть дробная часть, то ее следует
+// *          отбросить (0,9 => 0)
+// *
+// * @return 0 - OK
+// *         1 - ошибка конвертации
+// */
+//
+//
+//int s21_get_sign(s21_decimal decimal) {
+//    int sign = POSITIVE;                           // 0
+//    if (decimal.bits[3] & MINUS) sign = NEGATIVE;  // 1
+//    return sign;
+//}
+//
+//
 int s21_from_decimal_to_int(s21_decimal src, int *dst) {
+    int error = 0;
 
-    int err = 0;
+    // Проверка на NULL указатель dst
+    if (dst == NULL || !s21_correct_decimal(src)) {
+        error = 1;  // Вернуть ошибку, если указатель NULL
+    } else {
+        s21_decimal src_trunc;
+        s21_truncate(src, &src_trunc);
+        int sign = (src_trunc.bits[3] & MINUS) ? -1 : 1;
 
-    if(dst == NULL){
-        err =  1;
-    }else{
-        s21_decimal  dec_trunk={0};
-        s21_truncate(src, &dec_trunk);
-
-        int sign = (dec_trunk.bits[3] & MINUS) != 0 ? -1 : 1;
-
-
-        if ((dec_trunk.bits[2] == 0) && (dec_trunk.bits[1] == 0) &&
-            (dec_trunk.bits[0] < 2147483648 || (sign == -1  && dec_trunk.bits[0] == 2147483648))) {
-            *dst = dec_trunk.bits[0];
+        if ((src_trunc.bits[2] == 0) && (src_trunc.bits[1] == 0) &&
+            (src_trunc.bits[0] < 2147483648 ||
+             (sign ==- 1 && src_trunc.bits[0] == 2147483648))) {
+            *dst = src_trunc.bits[0];
             if (sign == -1) {
                 (*dst) *= -1;
             }
         } else {
-            err = 1;
+            // Значение src выходит за пределы допустимого диапазона для int
+            error = 1;
         }
     }
-
-    return  err;
+    return error;
 }
+
+
+
+

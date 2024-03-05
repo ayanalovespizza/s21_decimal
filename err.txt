@@ -1,0 +1,280 @@
+rm -rf *.o s21_test *.gcda *.gcno coverage-html coverage.info s21_decimal.a a.out
+gcc -std=c11 -c convertors/*.c  another/truncate.c  another/floor.c  extra.c  tests/*.c comparison/is_equal.c --coverage
+gcc -std=c11 -o s21_test *.o -lcheck --coverage
+./s21_test
+Running suite(s): [45m-=S21_suite_from_int_to_decimal=-[0m
+100%: Checks: 18, Failures: 0, Errors: 0
+Running suite(s): [45m-=S21_from_decimal_to_int_mini=-[0m
+100%: Checks: 89, Failures: 0, Errors: 0
+Running suite(s): [45m-=S21_suite_from_float_to_decimal_mini=-[0m
+30%: Checks: 382, Failures: 265, Errors: 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok3:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok4:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok5:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok6:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok9:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok10:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok11:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok12:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok13:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok14:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok15:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok16:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok17:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok18:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok19:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok20:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok23:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok24:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok25:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok26:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok27:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok28:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok29:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok30:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok31:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok32:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok33:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok34:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok35:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok36:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok37:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok38:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok39:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok40:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok41:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok42:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok43:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok44:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok45:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok46:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok49:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok50:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok51:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok52:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok57:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok58:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok59:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok60:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok61:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok62:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok63:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok64:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok65:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok66:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok67:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok68:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok69:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok70:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok73:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok74:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok75:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok76:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok83:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok84:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok85:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok86:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok87:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok88:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok89:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok90:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok91:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok92:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok93:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok94:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok95:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok96:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok97:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok98:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok99:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok100:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok101:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok102:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok103:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok104:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok105:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok106:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok107:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok108:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok109:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok110:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok111:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok112:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok113:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok114:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok115:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok116:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok117:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok118:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok119:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok120:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok123:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok124:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok127:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok128:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok129:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok130:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok131:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok132:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok133:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok134:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok135:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok136:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok137:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok138:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok141:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok142:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok143:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok144:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok145:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok146:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok147:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok148:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok149:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok150:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok151:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok152:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok153:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok154:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok155:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok156:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok157:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok158:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok159:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok160:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok161:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok162:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok163:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok164:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok165:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok166:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok169:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok170:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok171:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok172:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok173:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok174:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok175:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok176:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok177:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok178:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok179:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok180:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok181:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok182:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok183:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok184:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok185:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok186:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok187:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok188:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok189:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok190:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok191:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok192:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok193:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok194:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok195:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok196:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok199:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok200:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok201:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok202:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok203:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok204:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok205:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok206:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok207:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok208:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok209:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok210:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok211:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok212:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok213:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok214:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok215:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok216:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok217:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok218:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok219:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok220:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok221:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok222:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok223:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok224:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok225:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok226:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok227:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok228:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok229:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok230:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok231:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok232:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok233:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok234:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok235:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok236:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok237:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok238:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok239:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok240:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok241:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok242:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok243:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok244:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok245:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok246:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok247:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok248:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok249:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok647:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok648:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2001:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2002:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2693:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2694:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2695:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2696:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2697:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2698:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2701:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2702:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2703:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2704:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2705:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2706:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2707:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2708:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2709:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2710:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2713:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2714:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2715:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2716:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2719:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2720:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2721:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2722:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2723:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2724:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2725:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2726:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2727:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2728:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2729:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2730:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2731:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2732:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2733:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2734:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2735:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:126:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2736:0: Assertion 'code == 0' failed: code == 1, 0 == 0
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2737:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2738:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2743:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+tests/float_to_decimal.c:127:F:case_from_float_to_decimal:test_from_float_to_decimal_ok2744:0: Assertion 's21_is_equal(result, decimal_check) == 1' failed: s21_is_equal(result, decimal_check) == 0, 1 == 1
+Running suite(s): [45m-=S21_suite_from_decimal_to_float_mini=-[0m
+100%: Checks: 109, Failures: 0, Errors: 0
+[35m
+~~~~~~~~~ FAILED: 265 ~~~~~~~~~
+[0m

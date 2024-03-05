@@ -25,6 +25,11 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
     s21_decimal temp = {{0, 0, 0, 0}};
     *dst = temp;
 
+    if(src == 0){
+        dst->bits[0]  = src;
+        return 0;
+    }
+
     if(isinf(src) || isnan(src)){
         return 1;
     }
@@ -60,6 +65,7 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
         src *= 10;
         scale++;
     }
+
     fu.f = src;
 
     exp = ((fu.u & ~MINUS)>>23)-127;
