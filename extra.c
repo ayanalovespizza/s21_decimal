@@ -74,9 +74,6 @@ int pointright(s21_work_decimal *value) {
   return remainder;
 }
 
-// нормализация расширенного decimal к исходному
-// int normalize(s21_work_decimal, const int summ, const int sign) {}
-
 // приравнивание scale
 void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {
   if (value_1->scale < value_2->scale) {
@@ -101,4 +98,44 @@ int s21_correct_decimal(s21_decimal dst) {
   }
 
   return flag_error;
+}
+
+void tidy_work_decimal(s21_work_decimal *value) {
+  int last_digit = 0, full_remainder = 0;
+  int mantis_longer = check_mantis(*value);
+  while (mantis_longer && (value->scale > 0)) {
+    last_digit = pointright(value);
+    full_remainder += last_digit;
+    mantis_longer = check_mantis(*value);
+  }
+  work_bank_round(value, last_digit, full_remainder);
+}
+
+int check_mantis(s21_work_decimal value) {
+  int result = 0;
+  if (value.bits[3] != 0 || value.bits[4] != 0 || value.bits[5] != 0 ||
+      value.bits[6] != 0) {
+    result = 1;
+  }
+  return result;
+}
+
+void work_bank_round(s21_work_decimal *value, int last_digit,
+                     int full_remainder) {
+  if (last_digit != 5) {
+    if (last_digit > 5) {
+      value->bits[0]++;
+      is_overflow(value);
+    }
+  } else {
+    if (full_remainder > 5) {
+      value->bits[0]++;
+      is_overflow(value);
+    } else {
+      if (value->bits[0] % 2 == 1) {
+        value->bits[0]++;
+        is_overflow(value);
+      }
+    }
+  }
 }

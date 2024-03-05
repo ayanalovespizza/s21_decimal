@@ -11,6 +11,9 @@
 #define BIT_IS_NULL 0x000000000
 #define INCORRECT 0b01111111000000001111111111111111
 
+#define FALSE 0
+#define TRUE 1
+
 /*
 bits[0], bits[1], и bits[2] содержат младшие, средние и старшие 32 бита
 96-разрядного целого числа соответственно bits[3] содержит коэффициент
@@ -38,9 +41,14 @@ s21_decimal work_to_initial(s21_work_decimal decimal);
 int is_overflow(s21_work_decimal *value);
 int pointleft(s21_work_decimal *value);
 int pointright(s21_work_decimal *value);
-int normalize(s21_work_decimal, const int summ, const int sign);
+int normalize(s21_work_decimal *dec);
 void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2);
 int s21_correct_decimal(s21_decimal dst);
+
+void tidy_work_decimal(s21_work_decimal *value);
+int check_mantis(s21_work_decimal value);
+void work_bank_round(s21_work_decimal *value, int last_digit,
+                     int full_remainder);
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
