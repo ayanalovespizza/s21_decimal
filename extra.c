@@ -20,7 +20,7 @@ s21_decimal work_to_initial(s21_work_decimal decimal) {
   result.bits[1] = decimal.bits[1] & MAX4BITE;
   result.bits[2] = decimal.bits[2] & MAX4BITE;
   result.bits[3] |= (decimal.scale << 16);
-  result.bits[3] |= (decimal.sign << 16);
+  result.bits[3] = result.bits[3] | (decimal.sign << 31);
   return result;
 }
 
@@ -58,7 +58,7 @@ int pointleft(s21_work_decimal *value) {
 }
 
 // уменьшение scale
-long int pointright(s21_work_decimal *value) {
+int pointright(s21_work_decimal* value) {
   long int remainder = 0;
   for (int i = 6; i >= 0; i--) {
     value->bits[i] += remainder << 32;
@@ -87,16 +87,32 @@ void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {
 //Если res = 0, то мантиса первого числа не меньше 
 //Если res = 1, то мантиса первого меньше 
 int is_less_mantis(s21_work_decimal value_1, s21_work_decimal value_2){
-int res = 0; 
+int res = 0;
+int temp_1 = 0;
+int temp_2 = 0;
 for(int i = 6; i >= 0;i--){
   if(value_1.bits[i]<value_2.bits[i]){
     res = 1;
+  }
+  else if (value_1.bits[i]>value_2.bits[i]&&!res){
+    res = 0;
     break;
   }
+  
 }
 return res;
 }
 
+int mantis_is_null(s21_work_decimal value){
+  int res = 1;
+   for(int i=0;i<7;i++){
+    if(value.bits[i]!=0){
+      res = 0;
+      break;
+    }
+   }
+   return res;
+}
 //функция обнуления расширенного децимала
 void work_make_null(s21_work_decimal* value){
  for(int i = 0; i<7;i++){
@@ -114,8 +130,8 @@ void initial_make_null(s21_decimal* value){
 
 void tidy_work_decimal(s21_work_decimal* value){
     int last_digit = 0, full_remainder = 0;
-    int mantis_longer = check_mantis(*value) ;
-    if(mantis_longer&&value->scale>0){
+    int mantis_longer = check_mantis(*value);
+    while(mantis_longer&&(value->scale>0)){
         last_digit = pointright(value);
         full_remainder += last_digit;
         mantis_longer = check_mantis(*value);
@@ -150,3 +166,29 @@ void work_bank_round(s21_work_decimal* value,int last_digit, int full_remainder)
     }
 }
 
+void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result){
+    unsigned memo = 0;
+    for(int i = 0; i <32*6;i++){
+     unsigned  result_bit = s21_big_get_bit(value_1,i)+s21_big_get_bit(value_2,i)+memo;
+     memo = result_bit /2;
+     result_bit = result_bit % 2;
+     s21_big_set_bit(result,i,result_bit);
+    }
+}
+
+void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result){
+   unsigned memo = 0;
+    for(int i = 0; i <32*6;i++){
+     int result_bit = s21_big_get_bit(value_1,i)-s21_big_get_bit(value_2,i)-memo;
+     if(result_bit<0){
+      memo = 1;
+     }
+     else{
+      memo = 0;
+     }
+     if(result_bit == -1||result_bit==1){
+      result_bit = 1;
+     }
+     s21_big_set_bit(result,i,result_bit);
+    }
+}

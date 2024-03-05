@@ -3,10 +3,11 @@
 void tests_add(s21_decimal decimal1, s21_decimal decimal2, s21_decimal check) {
   s21_decimal result;
   int code = s21_add(decimal1, decimal2, &result);
-
+  //ck_assert_int_eq(s21_is_equal(result, check), 1);
   ck_assert_int_eq(check.bits[0], result.bits[0]);
   ck_assert_int_eq(check.bits[1], result.bits[1]);
   ck_assert_int_eq(check.bits[2], result.bits[2]);
+  ck_assert_int_eq(check.bits[3], result.bits[3]);
   ck_assert_int_eq(code, TEST_ARITHMETIC_OK);
 }
 
@@ -386,7 +387,7 @@ START_TEST(tests_add17) {
   // 79228162514264337593543950335
   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
   // 0.4999999999999999999999999999
-  s21_decimal decimal2 = {{0x87FFFFFF, 0x1F128130, 0x1027E72F, 0x1C0000}};
+  s21_decimal decimal2 = {{0x87FFFFFF, 0x1F128130, 0x1027E72F, 0x001C0000}};
   // 79228162514264337593543950335
   s21_decimal check = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
 

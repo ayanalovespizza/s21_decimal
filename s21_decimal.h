@@ -27,7 +27,7 @@ typedef struct {
 typedef struct {
   uint64_t bits[7];
   uint16_t scale;
-  int sign;
+  uint32_t  sign;
 } s21_work_decimal;
 
 s21_work_decimal initial_to_work(s21_decimal decimal);
@@ -35,12 +35,12 @@ s21_decimal work_to_initial(s21_work_decimal decimal);
 
 int is_overflow(s21_work_decimal *value);
 int pointleft(s21_work_decimal *value);
-long int pointright(s21_work_decimal *value);
+int pointright(s21_work_decimal *value);
 int normalize(s21_work_decimal, const int summ, const int sign);
 void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2);
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
-int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result);
 int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
@@ -70,6 +70,7 @@ void s21_big_set_sign(s21_work_decimal* value);
 void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
 void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
 int is_less_mantis(s21_work_decimal value_1, s21_work_decimal value_2);
+int mantis_is_null(s21_work_decimal value);
 
 void work_make_null(s21_work_decimal* value);
 void initial_make_null(s21_decimal* value);
