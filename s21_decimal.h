@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <limits.h>
 
 
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000

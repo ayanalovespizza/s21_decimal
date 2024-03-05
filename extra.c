@@ -1,5 +1,8 @@
 #include "s21_decimal.h"
 #include <math.h>
+#define BIT_IS_NULL 0x000000000
+#define INCORRECT 0b01111111000000001111111111111111
+
 // перевод из исходного decimal в рабочий
 s21_work_decimal initial_to_work(s21_decimal decimal) {
   s21_work_decimal result;
@@ -181,4 +184,23 @@ int s21_is_even(s21_decimal num) {
   if ((num.bits[0] & 1) == 0) res = 1;
 
   return res;
+}
+
+
+
+
+int s21_correct_decimal(s21_decimal dst){
+    int err = 1;
+    int scale = (dst.bits[3] & SCALE) >> 16;
+
+    if(BIT_IS_NULL != (dst.bits[3] &= INCORRECT )){
+        err = 0;
+    }
+
+    if(scale < 0 || scale > 28){
+        err = 0;
+    }
+
+
+    return  err;
 }

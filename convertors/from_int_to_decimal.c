@@ -22,8 +22,8 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
         dst->bits[3] |=  (1<< 31);
         src*=-1;
     }else if( src == INT_MIN){
-        dst->bits[0] = 1 << 31;
-        dst->bits[3] = 1 << 31;
+        dst->bits[0] = 1u << 31;
+        dst->bits[3] = 1u << 31;
         return 0;
     }
 
@@ -43,9 +43,7 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
     }
 
 
-    if(dst->bits[0] != src){
-        flag=1;
-    }
+
 
 
     return flag;
