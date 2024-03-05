@@ -38,7 +38,7 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
    if((value_1_sign == value_2_sign)&&value_1_sign){
        if(is_less_mantis(extand_decimal_1, extand_decimal_2)){
     bitwise_sub(extand_decimal_2,extand_decimal_1,&extand_result);
-    extand_result.sign = value_2_sign;
+    extand_result.sign = 0;
    }
     else{
     bitwise_sub(extand_decimal_1,extand_decimal_2,&extand_result);
@@ -57,12 +57,6 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
    }
    else{
    bitwise_add(extand_decimal_1,extand_decimal_2,&extand_result);
-  //  if(mantis_is_null(extand_decimal_1)&&value_1_sign){
-  //   extand_result.sign = value_2_sign;
-  //  }
-  //  else{
-  //  extand_result.sign = value_1_sign;
-  //  }
    extand_result.sign = value_1_sign;
    }
 

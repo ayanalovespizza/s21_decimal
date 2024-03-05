@@ -103,16 +103,6 @@ for(int i = 6; i >= 0;i--){
 return res;
 }
 
-int mantis_is_null(s21_work_decimal value){
-  int res = 1;
-   for(int i=0;i<7;i++){
-    if(value.bits[i]!=0){
-      res = 0;
-      break;
-    }
-   }
-   return res;
-}
 //функция обнуления расширенного децимала
 void work_make_null(s21_work_decimal* value){
  for(int i = 0; i<7;i++){
@@ -191,4 +181,15 @@ void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_deci
      }
      s21_big_set_bit(result,i,result_bit);
     }
+}
+
+int mantis_is_null(s21_work_decimal value){
+    int res = 1;
+    for(int i=0;i<7;i++){
+        if(value.bits[i]!=0){
+            res = 0;
+            break;
+        }
+    }
+    return res;
 }
