@@ -26,7 +26,7 @@ s21_decimal work_to_initial(s21_work_decimal decimal) {
 
 // работа с переполнением
 int is_overflow(s21_work_decimal *value) {
-  int overflow = 0;
+    uint32_t overflow = 0;
   int result = 0;
 
   for (int i = 0; i < 7; i++) {
@@ -118,15 +118,29 @@ void initial_make_null(s21_decimal* value){
 
 
 
-void tidy_work_decimal(s21_work_decimal* value){
+int tidy_work_decimal(s21_work_decimal* value){
     int last_digit = 0, full_remainder = 0;
     int mantis_longer = check_mantis(*value);
+    int status = 0;
     while(mantis_longer&&(value->scale>0)){
         last_digit = pointright(value);
         full_remainder += last_digit;
         mantis_longer = check_mantis(*value);
     }
     work_bank_round(value,last_digit,full_remainder);
+
+    if (is_infinity(*value))
+    {
+        if (value->sign){
+            status = 2;
+        } else {
+            status = 1;
+        }
+    } else if (is_too_small(*value)) {
+        status = 2; // Слишком маленькое число
+    }
+
+    return status;
 }
 
 int check_mantis(s21_work_decimal value){
@@ -192,4 +206,35 @@ int mantis_is_null(s21_work_decimal value){
         }
     }
     return res;
+}
+
+
+int is_correct_decimal(s21_decimal value) {
+    int res = 1;
+    int scale = (value.bits[3] & SCALE) >> 16;
+
+    if (scale < 0 || scale > 28){
+        res = 0;
+    }
+    else if (ISBITSNULL != (value.bits[3] &= INCORRECTDECIMAL)) {
+        res = 0;
+    }
+
+    return res;
+}
+
+int is_infinity(s21_work_decimal value){
+    int result = 0;
+if(value.scale<=0&&check_mantis(value)){
+    result = 1;
+}
+return result;
+}
+
+int is_too_small(s21_work_decimal value){
+    int result = 0;
+    if(value.scale>28){
+        result = 1;
+    }
+    return result;
 }

@@ -12,7 +12,9 @@
  */
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
    //Конвертация из decimal в work_decimal
-  int status = 0; 
+  int status = 0;
+    if (is_correct_decimal(value_1) && is_correct_decimal(value_2) &&
+        result != NULL) {
   s21_work_decimal extand_decimal_1 = initial_to_work(value_1);
   s21_work_decimal extand_decimal_2 = initial_to_work(value_2);
   s21_work_decimal extand_result;
@@ -60,8 +62,12 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
    extand_result.sign = value_1_sign;
    }
 
-    tidy_work_decimal(&extand_result);
+    status = tidy_work_decimal(&extand_result);
   //Перевод результата арифметики расширенного децимала и проверка ошибок
    *result = work_to_initial(extand_result);
+    }
+    else {
+        status = 1;
+    }
     return status;
 }

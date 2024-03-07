@@ -1,5 +1,7 @@
 #include "s21_tests.h"
-#define TEST_ARITHMETIC_OK 0 
+#define TEST_ARITHMETIC_OK 0
+#define TEST_ARITHMETIC_BIG 1
+#define TEST_ARITHMETIC_SMALL 2
 void tests_add(s21_decimal decimal1, s21_decimal decimal2, s21_decimal check) {
   s21_decimal result;
   int code = s21_add(decimal1, decimal2, &result);
@@ -18,205 +20,205 @@ void tests_add_fail(s21_decimal decimal1, s21_decimal decimal2, int check) {
   ck_assert_int_eq(code, check);
 }
 
-// START_TEST(tests_add_fail_manual1) {
-//   // 792281625.14264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   int code = s21_add(decimal1, decimal2, NULL);
+ START_TEST(tests_add_fail_manual1) {
+   // 792281625.14264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   int code = s21_add(decimal1, decimal2, NULL);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
 
-// START_TEST(tests_add_fail_manual2) {
-//   // степень 154 (показатель степени должен быть от 0 до 28)
-//   // биты 0-15 не нули
-//   // биты 24-30 не нули
-//   s21_decimal decimal1 = {{0, 0, 0, 1000000000}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual2) {
+   // степень 154 (показатель степени должен быть от 0 до 28)
+   // биты 0-15 не нули
+   // биты 24-30 не нули
+   s21_decimal decimal1 = {{0, 0, 0, 1000000000}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual3) {
-//   // степень 29 (показатель степени должен быть от 0 до 28)
-//   s21_decimal decimal1 = {{-1, 0, 0, 0x1D0000}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual3) {
+   // степень 29 (показатель степени должен быть от 0 до 28)
+   s21_decimal decimal1 = {{-1, 0, 0, 0x1D0000}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual4) {
-//   // степень 29 (показатель степени должен быть от 0 до 28)
-//   s21_decimal decimal1 = {{0, 0, 0, 0x1D0000}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual4) {
+   // степень 29 (показатель степени должен быть от 0 до 28)
+   s21_decimal decimal1 = {{0, 0, 0, 0x1D0000}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual5) {
-//   // степень 28 (что корректно), но биты 0-15 не нули (младший бит)
-//   s21_decimal decimal1 = {{-1, 0, 0, 0x1C0001}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual5) {
+   // степень 28 (что корректно), но биты 0-15 не нули (младший бит)
+   s21_decimal decimal1 = {{-1, 0, 0, 0x1C0001}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual6) {
-//   // степень 28 (что корректно), но биты 0-15 не нули (старший бит)
-//   s21_decimal decimal1 = {{-1, 0, 0, 0x1C8000}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual6) {
+   // степень 28 (что корректно), но биты 0-15 не нули (старший бит)
+   s21_decimal decimal1 = {{-1, 0, 0, 0x1C8000}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual7) {
-//   // степень 28 (что корректно), но биты 24-30 не нули (младший бит)
-//   s21_decimal decimal1 = {{-1, 0, 0, 0x11C0000}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual7) {
+   // степень 28 (что корректно), но биты 24-30 не нули (младший бит)
+   s21_decimal decimal1 = {{-1, 0, 0, 0x11C0000}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual8) {
-//   // степень 28 (что корректно), но биты 24-30 не нули (старший бит)
-//   s21_decimal decimal1 = {{-1, 0, 0, 0x401C0000}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual8) {
+   // степень 28 (что корректно), но биты 24-30 не нули (старший бит)
+   s21_decimal decimal1 = {{-1, 0, 0, 0x401C0000}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual9) {
-//   // Просто все единицы
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual9) {
+   // Просто все единицы
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual10) {
-//   // степень 154 (показатель степени должен быть от 0 до 28)
-//   // биты 0-15 не нули
-//   // биты 24-30 не нули
-//   s21_decimal decimal2 = {{0, 0, 0, 1000000000}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual10) {
+   // степень 154 (показатель степени должен быть от 0 до 28)
+   // биты 0-15 не нули
+   // биты 24-30 не нули
+   s21_decimal decimal2 = {{0, 0, 0, 1000000000}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual11) {
-//   // степень 29 (показатель степени должен быть от 0 до 28)
-//   s21_decimal decimal2 = {{-1, 0, 0, 0x1D0000}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual11) {
+   // степень 29 (показатель степени должен быть от 0 до 28)
+   s21_decimal decimal2 = {{-1, 0, 0, 0x1D0000}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual12) {
-//   // степень 29 (показатель степени должен быть от 0 до 28)
-//   s21_decimal decimal2 = {{0, 0, 0, 0x1D0000}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual12) {
+   // степень 29 (показатель степени должен быть от 0 до 28)
+   s21_decimal decimal2 = {{0, 0, 0, 0x1D0000}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual13) {
-//   // степень 28 (что корректно), но биты 0-15 не нули (младший бит)
-//   s21_decimal decimal2 = {{-1, 0, 0, 0x1C0001}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual13) {
+   // степень 28 (что корректно), но биты 0-15 не нули (младший бит)
+   s21_decimal decimal2 = {{-1, 0, 0, 0x1C0001}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual14) {
-//   // степень 28 (что корректно), но биты 0-15 не нули (старший бит)
-//   s21_decimal decimal2 = {{-1, 0, 0, 0x1C8000}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual14) {
+   // степень 28 (что корректно), но биты 0-15 не нули (старший бит)
+   s21_decimal decimal2 = {{-1, 0, 0, 0x1C8000}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual15) {
-//   // степень 28 (что корректно), но биты 24-30 не нули (младший бит)
-//   s21_decimal decimal2 = {{-1, 0, 0, 0x11C0000}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual15) {
+   // степень 28 (что корректно), но биты 24-30 не нули (младший бит)
+   s21_decimal decimal2 = {{-1, 0, 0, 0x11C0000}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual16) {
-//   // степень 28 (что корректно), но биты 24-30 не нули (старший бит)
-//   s21_decimal decimal2 = {{-1, 0, 0, 0x401C0000}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual16) {
+   // степень 28 (что корректно), но биты 24-30 не нули (старший бит)
+   s21_decimal decimal2 = {{-1, 0, 0, 0x401C0000}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add_fail_manual17) {
-//   // Просто все единицы
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
-//   s21_decimal result;
-//   int code = s21_add(decimal1, decimal2, &result);
+ START_TEST(tests_add_fail_manual17) {
+   // Просто все единицы
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
+   s21_decimal result;
+   int code = s21_add(decimal1, decimal2, &result);
 
-//   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
-// }
-// END_TEST
+   ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
+ }
+ END_TEST
 
-// START_TEST(tests_add1) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 79228162514264337593543950335
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add1) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 79228162514264337593543950335
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add2) {
   // 79228162514264337593543950335
@@ -229,16 +231,16 @@ START_TEST(tests_add2) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add3) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 79228162514264337593543950334
-//   s21_decimal decimal2 = {{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add3) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 79228162514264337593543950334
+   s21_decimal decimal2 = {{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add4) {
   // 79228162514264337593543950335
@@ -251,16 +253,16 @@ START_TEST(tests_add4) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add5) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 7922816251426433759354395033
-//   s21_decimal decimal2 = {{0x99999999, 0x99999999, 0x19999999, 0x0}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add5) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 7922816251426433759354395033
+   s21_decimal decimal2 = {{0x99999999, 0x99999999, 0x19999999, 0x0}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add6) {
   // 79228162514264337593543950335
@@ -273,16 +275,16 @@ START_TEST(tests_add6) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add7) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 7922816251426433759354395033.5
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x10000}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add7) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 7922816251426433759354395033.5
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x10000}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add8) {
   // 79228162514264337593543950335
@@ -295,16 +297,16 @@ START_TEST(tests_add8) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add9) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 7922816251426433759354395034
-//   s21_decimal decimal2 = {{0x9999999A, 0x99999999, 0x19999999, 0x0}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add9) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 7922816251426433759354395034
+   s21_decimal decimal2 = {{0x9999999A, 0x99999999, 0x19999999, 0x0}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add10) {
   // 79228162514264337593543950335
@@ -317,16 +319,16 @@ START_TEST(tests_add10) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add11) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 7922816251426433759354395035
-//   s21_decimal decimal2 = {{0x9999999B, 0x99999999, 0x19999999, 0x0}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add11) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 7922816251426433759354395035
+   s21_decimal decimal2 = {{0x9999999B, 0x99999999, 0x19999999, 0x0}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add12) {
   // 79228162514264337593543950335
@@ -339,16 +341,16 @@ START_TEST(tests_add12) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add13) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 1
-//   s21_decimal decimal2 = {{0x1, 0x0, 0x0, 0x0}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add13) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 1
+   s21_decimal decimal2 = {{0x1, 0x0, 0x0, 0x0}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add14) {
   // 79228162514264337593543950335
@@ -361,16 +363,16 @@ START_TEST(tests_add14) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add15) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 0.5
-//   s21_decimal decimal2 = {{0x5, 0x0, 0x0, 0x10000}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add15) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 0.5
+   s21_decimal decimal2 = {{0x5, 0x0, 0x0, 0x10000}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add16) {
   // 79228162514264337593543950335
@@ -405,16 +407,16 @@ START_TEST(tests_add18) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add19) {
-//   // 79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // 0.5000000000000000000000000001
-//   s21_decimal decimal2 = {{0x88000001, 0x1F128130, 0x1027E72F, 0x1C0000}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add19) {
+   // 79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // 0.5000000000000000000000000001
+   s21_decimal decimal2 = {{0x88000001, 0x1F128130, 0x1027E72F, 0x1C0000}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add20) {
   // 79228162514264337593543950335
@@ -438,16 +440,16 @@ START_TEST(tests_add21) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add22) {
-//   // -79228162514264337593543950335
-//   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
-//   // -8
-//   s21_decimal decimal2 = {{0x8, 0x0, 0x0, 0x80000000}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_SMALL;
+ START_TEST(tests_add22) {
+   // -79228162514264337593543950335
+   s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
+   // -8
+   s21_decimal decimal2 = {{0x8, 0x0, 0x0, 0x80000000}};
+   // overflow
+   int check = TEST_ARITHMETIC_SMALL;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add23) {
   // 1
@@ -680,16 +682,16 @@ START_TEST(tests_add43) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add44) {
-//   // -1
-//   s21_decimal decimal1 = {{0x1, 0x0, 0x0, 0x80000000}};
-//   // -79228162514264337593543950335
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_SMALL;
+ START_TEST(tests_add44) {
+   // -1
+   s21_decimal decimal1 = {{0x1, 0x0, 0x0, 0x80000000}};
+   // -79228162514264337593543950335
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
+   // overflow
+   int check = TEST_ARITHMETIC_SMALL;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add45) {
   // -1
@@ -867,16 +869,16 @@ START_TEST(tests_add60) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add61) {
-//   // 0.5
-//   s21_decimal decimal1 = {{0x5, 0x0, 0x0, 0x10000}};
-//   // 79228162514264337593543950335
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_BIG;
+ START_TEST(tests_add61) {
+   // 0.5
+   s21_decimal decimal1 = {{0x5, 0x0, 0x0, 0x10000}};
+   // 79228162514264337593543950335
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};
+   // overflow
+   int check = TEST_ARITHMETIC_BIG;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add62) {
   // 0.5
@@ -1142,16 +1144,16 @@ START_TEST(tests_add85) {
   tests_add(decimal1, decimal2, check);
 }
 
-// START_TEST(tests_add86) {
-//   // -0.5000000000000000000000000001
-//   s21_decimal decimal1 = {{0x88000001, 0x1F128130, 0x1027E72F, 0x801C0000}};
-//   // -79228162514264337593543950335
-//   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
-//   // overflow
-//   int check = TEST_ARITHMETIC_SMALL;
+ START_TEST(tests_add86) {
+   // -0.5000000000000000000000000001
+   s21_decimal decimal1 = {{0x88000001, 0x1F128130, 0x1027E72F, 0x801C0000}};
+   // -79228162514264337593543950335
+   s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};
+   // overflow
+   int check = TEST_ARITHMETIC_SMALL;
 
-//   tests_add_fail(decimal1, decimal2, check);
-// }
+   tests_add_fail(decimal1, decimal2, check);
+ }
 
 START_TEST(tests_add87) {
   // -0.5000000000000000000000000001
@@ -1696,46 +1698,46 @@ Suite *add_suite(void) {
   Suite *s = suite_create("\033[45m-=S21_suite_add_mini=-\033[0m");
   TCase *tc = tcase_create("case_add");
 
-  // tcase_add_test(tc, tests_add_fail_manual1);
-  // tcase_add_test(tc, tests_add_fail_manual2);
-  // tcase_add_test(tc, tests_add_fail_manual3);
-  // tcase_add_test(tc, tests_add_fail_manual4);
-  // tcase_add_test(tc, tests_add_fail_manual5);
-  // tcase_add_test(tc, tests_add_fail_manual6);
-  // tcase_add_test(tc, tests_add_fail_manual7);
-  // tcase_add_test(tc, tests_add_fail_manual8);
-  // tcase_add_test(tc, tests_add_fail_manual9);
-  // tcase_add_test(tc, tests_add_fail_manual10);
-  // tcase_add_test(tc, tests_add_fail_manual11);
-  // tcase_add_test(tc, tests_add_fail_manual12);
-  // tcase_add_test(tc, tests_add_fail_manual13);
-  // tcase_add_test(tc, tests_add_fail_manual14);
-  // tcase_add_test(tc, tests_add_fail_manual15);
-  // tcase_add_test(tc, tests_add_fail_manual16);
-  // tcase_add_test(tc, tests_add_fail_manual17);
+   tcase_add_test(tc, tests_add_fail_manual1);
+   tcase_add_test(tc, tests_add_fail_manual2);
+   tcase_add_test(tc, tests_add_fail_manual3);
+   tcase_add_test(tc, tests_add_fail_manual4);
+   tcase_add_test(tc, tests_add_fail_manual5);
+   tcase_add_test(tc, tests_add_fail_manual6);
+   tcase_add_test(tc, tests_add_fail_manual7);
+   tcase_add_test(tc, tests_add_fail_manual8);
+   tcase_add_test(tc, tests_add_fail_manual9);
+   tcase_add_test(tc, tests_add_fail_manual10);
+   tcase_add_test(tc, tests_add_fail_manual11);
+   tcase_add_test(tc, tests_add_fail_manual12);
+   tcase_add_test(tc, tests_add_fail_manual13);
+   tcase_add_test(tc, tests_add_fail_manual14);
+   tcase_add_test(tc, tests_add_fail_manual15);
+   tcase_add_test(tc, tests_add_fail_manual16);
+   tcase_add_test(tc, tests_add_fail_manual17);
   ///
-//   tcase_add_test(tc, tests_add1);
+  tcase_add_test(tc, tests_add1);
   tcase_add_test(tc, tests_add2);
-//   tcase_add_test(tc, tests_add3);
+  tcase_add_test(tc, tests_add3);
   tcase_add_test(tc, tests_add4);
-//   tcase_add_test(tc, tests_add5);
+  tcase_add_test(tc, tests_add5);
   tcase_add_test(tc, tests_add6);
-//   tcase_add_test(tc, tests_add7);
+  tcase_add_test(tc, tests_add7);
   tcase_add_test(tc, tests_add8);
-//   tcase_add_test(tc, tests_add9);
+  tcase_add_test(tc, tests_add9);
   tcase_add_test(tc, tests_add10);
-//   tcase_add_test(tc, tests_add11);
+  tcase_add_test(tc, tests_add11);
   tcase_add_test(tc, tests_add12);
-//   tcase_add_test(tc, tests_add13);
+  tcase_add_test(tc, tests_add13);
   tcase_add_test(tc, tests_add14);
-//   tcase_add_test(tc, tests_add15);
+  tcase_add_test(tc, tests_add15);
   tcase_add_test(tc, tests_add16);
   tcase_add_test(tc, tests_add17);
   tcase_add_test(tc, tests_add18);
-//   tcase_add_test(tc, tests_add19);
+  tcase_add_test(tc, tests_add19);
   tcase_add_test(tc, tests_add20);
   tcase_add_test(tc, tests_add21);
-//   tcase_add_test(tc, tests_add22);
+  tcase_add_test(tc, tests_add22);
   tcase_add_test(tc, tests_add23);
   tcase_add_test(tc, tests_add24);
   tcase_add_test(tc, tests_add25);
@@ -1757,7 +1759,7 @@ Suite *add_suite(void) {
   tcase_add_test(tc, tests_add41);
   tcase_add_test(tc, tests_add42);
   tcase_add_test(tc, tests_add43);
-//   tcase_add_test(tc, tests_add44);
+  tcase_add_test(tc, tests_add44);
   tcase_add_test(tc, tests_add45);
   tcase_add_test(tc, tests_add46);
   tcase_add_test(tc, tests_add47);
@@ -1774,7 +1776,7 @@ Suite *add_suite(void) {
   tcase_add_test(tc, tests_add58);
   tcase_add_test(tc, tests_add59);
   tcase_add_test(tc, tests_add60);
-//   tcase_add_test(tc, tests_add61);
+  tcase_add_test(tc, tests_add61);
   tcase_add_test(tc, tests_add62);
   tcase_add_test(tc, tests_add63);
   tcase_add_test(tc, tests_add64);
@@ -1799,7 +1801,7 @@ Suite *add_suite(void) {
   tcase_add_test(tc, tests_add83);
   tcase_add_test(tc, tests_add84);
   tcase_add_test(tc, tests_add85);
-//   tcase_add_test(tc, tests_add86);
+  tcase_add_test(tc, tests_add86);
   tcase_add_test(tc, tests_add87);
   tcase_add_test(tc, tests_add88);
   tcase_add_test(tc, tests_add89);

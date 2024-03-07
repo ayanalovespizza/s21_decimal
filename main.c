@@ -4,8 +4,6 @@
 
 int main() {
   s21_decimal result;
-
-
     // -8
     s21_decimal decimal1 = {{0x8, 0x0, 0x0, 0x80000000}};
     // -7922816251426433759354395035
@@ -17,5 +15,6 @@ int main() {
 for(int i =0;i<4;i++){
     printf("%x\n",result.bits[i]);
 }
+
   return 0;
 }
