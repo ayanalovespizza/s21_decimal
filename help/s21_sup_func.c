@@ -38,5 +38,5 @@ s21_work_decimal s21_init_work_decimal(s21_decimal decimal){
     new_decimal.bits[4] =0;
 
     new_decimal.scale = (decimal.bits[3] & SCALE ) >> 16;
-    new_decimal.sign = (decimal.bits[3] & MINUS ? 1 : 0);
+//    new_decimal.sign = (decimal.bits[3] & MINUS ? 1 : 0);
 }

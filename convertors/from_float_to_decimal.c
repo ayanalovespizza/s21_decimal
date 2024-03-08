@@ -1,8 +1,9 @@
+
 #include "../s21_decimal.h"
 #include <math.h>
 #include <stdio.h>
 #include "stdint.h"
-
+#define s21_MAXDEC pow(2, 96) - 1
 #define MAX_SCALE 28
 
 /**
@@ -35,9 +36,24 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
     FloatIntUnion u;
     int scale = 0;
 
-    if (isinf(src) || isnan(src) || dst == NULL) {
+    if (dst == NULL || (fabs(src) > s21_MAXDEC) || (fabs(src) == INFINITY) ||
+        isnan(fabs(src))) {
+        return  1;
+    } else if (fabs(src) > 0 && fabs(src) < 1e-28) {
+        for(int i=0; i< 4;i++){
+            dst->bits[i]= 0;
+        }
         return 1;
     }
+
+    if(src == 0.0){
+        for(int i=0; i< 4;i++){
+            dst->bits[i]= 0;
+        }
+        return 0;
+    }
+
+
 
     if(src < 0){
         dst->bits[3] |= MINUS;
@@ -68,11 +84,6 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
         }
     }
 
-
-    //printf("%x\n",dst->bits[3]);
-//    printf("%f\n",u.f);
-//    printf("%d\n",exp);
-//    printf("%d\n",mantissa);
     return 0;
 }
 

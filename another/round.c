@@ -6,4 +6,4 @@
  * @return 0 - OK
  *         1 - ошибка вычисления
  */
-int s21_round(s21_decimal value, s21_decimal *res) {}
+//int s21_round(s21_decimal value, s21_decimal *res) {}

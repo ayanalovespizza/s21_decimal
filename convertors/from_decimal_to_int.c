@@ -23,7 +23,7 @@ int s21_from_decimal_to_int(s21_decimal src, int *dst) {
     int error = 0;
 
     // Проверка на NULL указатель dst
-    if (dst == NULL || !s21_correct_decimal(src)) {
+    if (dst == NULL || !is_correct_decimal(src)) {
         error = 1;  // Вернуть ошибку, если указатель NULL
     } else {
         s21_decimal src_trunc;
