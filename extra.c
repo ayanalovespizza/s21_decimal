@@ -1,8 +1,14 @@
 #include "s21_decimal.h"
 
+void work_make_null(s21_work_decimal *value) {
+  for (int i = 0; i < 7; i++) {
+    value->bits[i] = 0;
+  }
+}
+
 // перевод из исходного decimal в рабочий
 s21_work_decimal initial_to_work(s21_decimal decimal) {
-  s21_work_decimal result = {0};
+  s21_work_decimal result = {{0, 0, 0, 0, 0, 0, 0}, 0};
   result.bits[0] = decimal.bits[0] & MAX4BITE;
   result.bits[1] = decimal.bits[1] & MAX4BITE;
   result.bits[2] = decimal.bits[2] & MAX4BITE;
@@ -17,7 +23,7 @@ s21_work_decimal initial_to_work(s21_decimal decimal) {
 
 // перевод из рабочего decimala в исходный
 s21_decimal work_to_initial(s21_work_decimal decimal) {
-  s21_decimal result = {0};
+  s21_decimal result = {0, 0, 0, 0};
   result.bits[0] = decimal.bits[0] & MAX4BITE;
   result.bits[1] = decimal.bits[1] & MAX4BITE;
   result.bits[2] = decimal.bits[2] & MAX4BITE;
@@ -29,12 +35,13 @@ s21_decimal work_to_initial(s21_work_decimal decimal) {
 
 // работа с переполнением
 int is_overflow(s21_work_decimal *value) {
-  int overflow = 0;
+  uint32_t overflow = 0;
   int result = 0;
 
   for (int i = 0; i < 7; i++) {
     value->bits[i] += overflow;
     overflow = (value->bits[i] >> 32);
+    // printf("overflow bits[%d]= %x\n", i, overflow);
     value->bits[i] &= MAX4BITE;
   }
 
@@ -137,5 +144,31 @@ void work_bank_round(s21_work_decimal *value, int last_digit,
         is_overflow(value);
       }
     }
+  }
+}
+
+int s21_big_get_bit(s21_work_decimal value, int position_bit) {
+  int result = -1;
+  unsigned value_bit = 1;
+  int array_position = 0;
+  array_position = position_bit / 32;
+  position_bit = (position_bit % 32);
+  value_bit = value_bit << position_bit;
+  value_bit = value_bit & (value.bits[array_position]);
+  result = value_bit >> position_bit;
+  return result;
+}
+
+void s21_big_set_bit(s21_work_decimal *value, int position_bit,
+                     unsigned value_bit) {
+  int array_position = 0;
+  int temp = value_bit;
+  array_position = position_bit / 32;
+  position_bit = (position_bit % 32);
+  value_bit = value_bit << position_bit;
+  if (temp == 1) {
+    value->bits[array_position] = value->bits[array_position] | value_bit;
+  } else {
+    value->bits[array_position] = (value->bits[array_position]) & (~value_bit);
   }
 }

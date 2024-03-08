@@ -2,7 +2,9 @@
 #define S21_DECIMAL_H
 
 #include <math.h>
+#include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000
@@ -50,6 +52,10 @@ int check_mantis(s21_work_decimal value);
 void work_bank_round(s21_work_decimal *value, int last_digit,
                      int full_remainder);
 
+int s21_big_get_bit(s21_work_decimal value, int position_bit);
+void s21_big_set_bit(s21_work_decimal *value, int position_bit,
+                     unsigned value_bit);
+
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
@@ -71,5 +77,7 @@ int s21_floor(s21_decimal value, s21_decimal *result);
 int s21_round(s21_decimal value, s21_decimal *result);
 int s21_truncate(s21_decimal value, s21_decimal *result);
 int s21_negate(s21_decimal value, s21_decimal *result);
+
+// проба
 
 #endif

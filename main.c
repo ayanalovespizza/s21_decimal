@@ -40,5 +40,10 @@ int main() {
   printf("Результат сравнения: %d status %d", s21_is_equal(result, check),
          status);
 
+  __uint128_t u128 = 8724164262422454727u;
+  // __uint128_t u128 = 12345678900987654321u;
+  printf("\n\n%llx\n", (unsigned long long)(u128 & 0xFFFFFFFFFFFFFFFF));
+  return (0);
+
   return 0;
 }

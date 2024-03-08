@@ -16,6 +16,8 @@ Suite *is_greater_or_equal_suite();  // test 9 is sus
 Suite *negate_suite();    // done
 Suite *floor_suite();     // done
 Suite *truncate_suite();  // done
-Suite *round_suite();
+Suite *round_suite();     // done
+
+Suite *mul_suite();
 
 #endif
