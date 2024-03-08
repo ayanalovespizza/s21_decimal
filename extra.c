@@ -122,7 +122,7 @@ int tidy_work_decimal(s21_work_decimal* value){
     int last_digit = 0, full_remainder = 0;
     int mantis_longer = check_mantis(*value);
     int status = 0;
-    while(mantis_longer&&(value->scale>0)){
+    while(mantis_longer&&(value->scale>0)||value->scale>28){
         last_digit = pointright(value);
         full_remainder += last_digit;
         mantis_longer = check_mantis(*value);
@@ -238,3 +238,4 @@ int is_too_small(s21_work_decimal value){
     }
     return result;
 }
+

@@ -42,7 +42,7 @@ void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2);
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result);
-int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal* result);
 int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
 int s21_is_less(s21_decimal value_1, s21_decimal value_2);
@@ -83,5 +83,6 @@ void work_bank_round(s21_work_decimal* value,int last_digit, int full_remainder)
 int is_correct_decimal(s21_decimal value);
 int is_infinity(s21_work_decimal value);
 int is_too_small(s21_work_decimal value);
+
 #endif
 
