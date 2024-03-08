@@ -17,7 +17,7 @@ main: s21_decimal.a
 	./a.out
 
 test: clean
-	 $(CC) $(FLAGS) -c convertors/*.c  another/truncate.c  another/floor.c  extra.c  tests/*.c comparison/is_equal.c --coverage
+	 $(CC) $(FLAGS) -c convertors/*.c  another/truncate.c  another/floor.c another/round.c  extra.c  tests/*.c comparison/is_equal.c --coverage
 	$(CC) $(FLAGS) -o s21_test *.o -lcheck --coverage
 	./s21_test
 

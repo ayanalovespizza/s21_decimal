@@ -8,7 +8,7 @@ int main() {
 
     s21_decimal decimal = {0};
 
-    float f = 5.92141241E+23;
+    float f = 0.2423535124;
     // 592141200000000000000000
     s21_decimal decimal_check = {{0xBF280000, 0x9ED0576, 0x7D64, 0x0}};
 
@@ -20,11 +20,15 @@ int main() {
     printf("qe - %d\ncode- %d\n",eq,code);
 
 
-    printf("%d\n",decimal.bits[0]);
-    printf("%d\n",decimal.bits[1]);
-    printf("%d\n",decimal.bits[2]);
-    printf("%d\n",decimal.bits[3]);
+    printf("%x\n",decimal.bits[0]);
+    printf("%x\n",decimal.bits[1]);
+    printf("%x\n",decimal.bits[2]);
+    printf("%x\n",decimal.bits[3]);
+    float a = 802580.063;
+    char str[100];
 
+    sprintf(str,"%e",a);
+    printf("%.8e\n",a);
 
     return 0;
 }

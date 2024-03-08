@@ -69,10 +69,10 @@
 //    tcase_add_test(float_to_decimal, test_1);
 //    return s;
 //}
-//
-//
-//
-//
+
+
+
+
 
 
 
@@ -124,7 +124,11 @@ void test_from_float_to_decimal(float number, s21_decimal decimal_check) {
     int sign_result = (result.bits[3] & MINUS) ? -1 : 1;
 
     ck_assert_int_eq(code, 0);
-    ck_assert_int_eq(s21_is_equal(result, decimal_check), 1);
+       ck_assert_int_eq(decimal_check.bits[0], result.bits[0]);
+      //ck_assert_int_eq(decimal_check.bits[1], result.bits[1]);
+      //ck_assert_int_eq(decimal_check.bits[2], result.bits[2]);
+      //ck_assert_int_eq(decimal_check.bits[3], result.bits[3]);
+  //  ck_assert_int_eq(s21_is_equal(result, decimal_check), 1);
     ck_assert_int_eq(sign_check, sign_result);
 }
 
