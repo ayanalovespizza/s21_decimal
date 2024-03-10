@@ -1,8 +1,8 @@
 #ifndef S21_DECIMAL_H
 #define S21_DECIMAL_H
 
+#include <limits.h>
 #include <math.h>
-#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,26 +35,8 @@ typedef struct {
 typedef struct {
   uint64_t bits[7];
   uint16_t scale;
+  uint32_t sign;
 } s21_work_decimal;
-
-s21_work_decimal initial_to_work(s21_decimal decimal);
-s21_decimal work_to_initial(s21_work_decimal decimal);
-
-int is_overflow(s21_work_decimal *value);
-int pointleft(s21_work_decimal *value);
-int pointright(s21_work_decimal *value);
-int normalize(s21_work_decimal *dec);
-void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2);
-int s21_correct_decimal(s21_decimal dst);
-
-void tidy_work_decimal(s21_work_decimal *value);
-int check_mantis(s21_work_decimal value);
-void work_bank_round(s21_work_decimal *value, int last_digit,
-                     int full_remainder);
-
-int s21_big_get_bit(s21_work_decimal value, int position_bit);
-void s21_big_set_bit(s21_work_decimal *value, int position_bit,
-                     unsigned value_bit);
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
@@ -78,6 +60,35 @@ int s21_round(s21_decimal value, s21_decimal *result);
 int s21_truncate(s21_decimal value, s21_decimal *result);
 int s21_negate(s21_decimal value, s21_decimal *result);
 
-// проба
+// helpers
+void work_make_null(s21_work_decimal *value);
+void initial_make_null(s21_decimal *value);
 
+s21_work_decimal initial_to_work(s21_decimal decimal);
+s21_decimal work_to_initial(s21_work_decimal decimal);
+
+int is_overflow(s21_work_decimal *value);
+int pointleft(s21_work_decimal *value);
+int pointright(s21_work_decimal *value);
+void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2);
+
+int is_less_mantis(s21_work_decimal value_1, s21_work_decimal value_2);
+int tidy_work_decimal(s21_work_decimal *value);
+int check_mantis(s21_work_decimal value);
+void work_bank_round(s21_work_decimal *value, int last_digit,
+                     int full_remainder);
+
+int s21_big_get_bit(s21_work_decimal value, int position_bit);
+void s21_big_set_bit(s21_work_decimal *value, int position_bit,
+                     unsigned value_bit);
+void s21_set_sign(s21_decimal *value);
+
+void bitwise_add(s21_work_decimal value_1, s21_work_decimal value_2,
+                 s21_work_decimal *result);
+void bitwise_sub(s21_work_decimal value_1, s21_work_decimal value_2,
+                 s21_work_decimal *result);
+int mantis_is_null(s21_work_decimal value);
+int is_correct_decimal(s21_decimal value);
+int is_infinity(s21_work_decimal value);
+int is_too_small(s21_work_decimal value);
 #endif

@@ -7,7 +7,7 @@
  *         1 - ошибка вычисления
  */
 int s21_round(s21_decimal value, s21_decimal* result) {
-  if (!s21_correct_decimal(value) || result == NULL) return 1;
+  if (!is_correct_decimal(value) || result == NULL) return 1;
 
   int last_digit = 0, full_remainder = 0;
   s21_work_decimal value_work = initial_to_work(value);

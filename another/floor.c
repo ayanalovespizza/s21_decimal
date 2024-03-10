@@ -8,7 +8,7 @@
  *         1 - ошибка вычисления
  */
 int s21_floor(s21_decimal value, s21_decimal *result) {
-  if (!s21_correct_decimal(value) || result == NULL) return 1;
+  if (!is_correct_decimal(value) || result == NULL) return 1;
 
   // перевод в расширенный децимал
   s21_work_decimal work_decimal = initial_to_work(value);

@@ -18,6 +18,15 @@ Suite *floor_suite();     // done
 Suite *truncate_suite();  // done
 Suite *round_suite();     // done
 
+Suite *decimal_to_float_suite();
+Suite *decimal_to_int_suite();
+Suite *float_to_decimal_suite();
+Suite *int_to_decimal_suite();
+
+Suite *add_suite();
+Suite *sub_suite();
+
 Suite *mul_suite();
+Suite *div_suite();
 
 #endif
