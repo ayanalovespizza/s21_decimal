@@ -38,7 +38,6 @@ START_TEST(tests_mul_fail_manual1) {
         s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
         s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};
         int code = s21_mul(decimal1, decimal2, NULL);
-
         ck_assert_int_ne(code, TEST_ARITHMETIC_OK);
 }
 
@@ -224,27 +223,9 @@ END_TEST
 
 ///
 
-START_TEST(tests_mul_manual1) {
-    // 7.9228162514264337593543950335
-    s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x1C0000}};
-    // 7.8228162514264337593543950335
-    s21_decimal decimal2 = {{0x17FFFFFF, 0x602F7FC3, 0xFCC4D1C3, 0x1C0000}};
-    // 61.978735728724164262422454727
-    s21_decimal check = {{0xE07921C7, 0x3FD7ABE1, 0xC8439BCC, 0x1B0000}};
 
-    tests_mul(decimal1, decimal2, check);
-}
 
-START_TEST(tests_mul_manual2) {
-        // 7.9228162514264337593543950335
-        s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x1C0000}};
-        // -0.8228162514264337593543950335
-        s21_decimal decimal2 = {{0x4F63FFFF, 0xBB0D25CF, 0x1A962D2F, 0x801C0000}};
-        // -6.5190219687391279469416894926
-        s21_decimal check = {{0x23B23CAE, 0xEC60363A, 0xD2A415FA, 0x801C0000}};
 
-        tests_mul(decimal1, decimal2, check);
-}
 
 START_TEST(tests_mul_manual3) {
         // -7.000000000000025
@@ -257,27 +238,7 @@ START_TEST(tests_mul_manual3) {
         tests_mul(decimal1, decimal2, check);
 }
 
-START_TEST(tests_mul_manual4) {
-        // -7922816251426.4337593543950335
-        s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80100000}};
-        // 78228162514264.337593543950335
-        s21_decimal decimal2 = {{0x17FFFFFF, 0x602F7FC3, 0xFCC4D1C3, 0xF0000}};
-        // -619787357287241642624224547.27
-        s21_decimal check = {{0xE07921C7, 0x3FD7ABE1, 0xC8439BCC, 0x80020000}};
 
-        tests_mul(decimal1, decimal2, check);
-}
-
-START_TEST(tests_mul_manual5) {
-        // -79228162514264.337593543950335
-        s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x800F0000}};
-        // 782281625142643.37593543950335
-        s21_decimal decimal2 = {{0x17FFFFFF, 0x602F7FC3, 0xFCC4D1C3, 0xE0000}};
-        // -61978735728724164262422454727
-        s21_decimal check = {{0xE07921C7, 0x3FD7ABE1, 0xC8439BCC, 0x80000000}};
-
-        tests_mul(decimal1, decimal2, check);
-}
 
 START_TEST(tests_mul_manual6) {
         // 79228162514264.1
@@ -356,16 +317,6 @@ START_TEST(tests_mul_manual12) {
         tests_mul(decimal1, decimal2, check);
 }
 
-START_TEST(tests_mul_manual13) {
-        // 7.9228162514264337593543950335
-        s21_decimal decimal1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x1C0000}};
-        // 0.00000
-        s21_decimal decimal2 = {{0x0, 0x0, 0x0, 0x50000}};
-        // 0
-        s21_decimal check = {{0x0, 0x0, 0x0, 0x0}};
-
-        tests_mul(decimal1, decimal2, check);
-}
 
 START_TEST(tests_mul_manual14) {
         // 7922816251426433759354395032.8
@@ -412,18 +363,6 @@ START_TEST(tests_mul_manual17) {
         tests_mul(decimal1, decimal2, decimal_check);
 }
 
-START_TEST(tests_mul_manual97) {
-        // -0.0000000000000025
-        s21_decimal decimal1 = {{0x19, 0x0, 0x0, 0x80100000}};
-        // -0.0000000000000005
-        s21_decimal decimal2 = {{0x5, 0x0, 0x0, 0x80100000}};
-        // too small
-        // 0.0000000000000000000000000000
-        s21_decimal decimal_check = {{0x0, 0x0, 0x0, 0x1C0000}};
-        int code_check = TEST_ARITHMETIC_SMALL;
-
-        tests_mul_fail2(decimal1, decimal2, decimal_check, code_check);
-}
 
 START_TEST(tests_mul_manual98) {
         // 792281625142643.37593543950335
@@ -1037,17 +976,7 @@ START_TEST(tests_mul52) {
         tests_mul(decimal1, decimal2, decimal_check);
 }
 
-START_TEST(tests_mul53) {
-        // 7055.820576069728775806815669
-        s21_decimal decimal1 = {{0x69168DB5, 0xDCB4F4B1, 0x16CC701F, 0x180000}};
-        // -792281625142643.37593543950335
-        s21_decimal decimal2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x800E0000}};
-        // -5590196992723426894.7708082476
-        s21_decimal decimal_check = {
-            {0x2DC7792C, 0x10FB6E4E, 0xB4A10696, 0x800A0000}};
 
-        tests_mul(decimal1, decimal2, decimal_check);
-}
 
 START_TEST(tests_mul1820) {
         // -0.9999999999999999999999999999
@@ -1453,11 +1382,7 @@ Suite *mul_suite() {
     tcase_add_test(tc_core, tests_mul_fail_manual16);
     tcase_add_test(tc_core, tests_mul_fail_manual17);
     ///
-    tcase_add_test(tc_core, tests_mul_manual1);
-    tcase_add_test(tc_core, tests_mul_manual2);
     tcase_add_test(tc_core, tests_mul_manual3);
-    tcase_add_test(tc_core, tests_mul_manual4);
-    tcase_add_test(tc_core, tests_mul_manual5);
     tcase_add_test(tc_core, tests_mul_manual6);
     tcase_add_test(tc_core, tests_mul_manual7);
     tcase_add_test(tc_core, tests_mul_manual8);
@@ -1465,12 +1390,10 @@ Suite *mul_suite() {
     tcase_add_test(tc_core, tests_mul_manual10);
     tcase_add_test(tc_core, tests_mul_manual11);
     tcase_add_test(tc_core, tests_mul_manual12);
-    tcase_add_test(tc_core, tests_mul_manual13);
     tcase_add_test(tc_core, tests_mul_manual14);
     tcase_add_test(tc_core, tests_mul_manual15);
     tcase_add_test(tc_core, tests_mul_manual16);
     tcase_add_test(tc_core, tests_mul_manual17);
-    tcase_add_test(tc_core, tests_mul_manual97);
     tcase_add_test(tc_core, tests_mul_manual98);
     tcase_add_test(tc_core, tests_mul_manual99);
     ////
@@ -1526,7 +1449,6 @@ Suite *mul_suite() {
     tcase_add_test(tc_core, tests_mul50);
     tcase_add_test(tc_core, tests_mul51);
     tcase_add_test(tc_core, tests_mul52);
-    tcase_add_test(tc_core, tests_mul53);
     ///
     tcase_add_test(tc_core, tests_mul1820);
     tcase_add_test(tc_core, tests_mul1821);

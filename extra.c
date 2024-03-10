@@ -9,6 +9,7 @@ s21_work_decimal initial_to_work(s21_decimal decimal) {
   result.bits[2] = decimal.bits[2] & MAX4BITE;
   result.scale = (decimal.bits[3] & SCALE) >> 16;
   result.sign = (decimal.bits[3] & MINUS) >> 31;
+  result.sign = (decimal.bits[3] & MINUS) >> 31;
   return result;
 }
 
@@ -59,11 +60,11 @@ int pointleft(s21_work_decimal *value) {
 
 // уменьшение scale
 int pointright(s21_work_decimal* value) {
-  long int remainder = 0;
+  uint64_t remainder = 0;
   for (int i = 6; i >= 0; i--) {
     value->bits[i] += remainder << 32;
-    remainder = value->bits[i] % 10;
-    value->bits[i] /= 10;
+    remainder = value->bits[i] % (unsigned )(10);
+    value->bits[i] /= (unsigned )(10);
   }
 
   value->scale -= 1;
@@ -119,7 +120,7 @@ void initial_make_null(s21_decimal* value){
 
 
 int tidy_work_decimal(s21_work_decimal* value){
-    int last_digit = 0, full_remainder = 0;
+    unsigned int last_digit = 0, full_remainder = 0;
     int mantis_longer = check_mantis(*value);
     int status = 0;
     while(mantis_longer&&(value->scale>0)||value->scale>28){
@@ -151,19 +152,19 @@ int check_mantis(s21_work_decimal value){
     return result;
 }
 
-void work_bank_round(s21_work_decimal* value,int last_digit, int full_remainder){
+void work_bank_round(s21_work_decimal* value,unsigned int last_digit, unsigned int full_remainder){
     if (last_digit != 5) {
         if (last_digit > 5) {
-            value->bits[0]++;
+            value->bits[0]+=1u;
             is_overflow(value);
         }
     } else {
         if (full_remainder > 5) {
-            value->bits[0]++;
+            value->bits[0]+=1u;
             is_overflow(value);
         } else {
             if (value->bits[0] % 2 == 1) {
-                value->bits[0]++;
+                value->bits[0]+=1u;
                 is_overflow(value);
             }
         }

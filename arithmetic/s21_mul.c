@@ -38,7 +38,6 @@ int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
             result_work.scale = value_1_work.scale + value_2_work.scale;
 
-//            printf("scale %x\n",result_work.scale);
              result_work.bits[0] = value_2_work.bits[0] * value_1_work.bits[0];
              result_work.bits[1] = value_2_work.bits[0] * value_1_work.bits[1] +
                                    value_2_work.bits[1] * value_1_work.bits[0];
@@ -49,13 +48,12 @@ int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
                                    value_2_work.bits[2] * value_1_work.bits[1];
              result_work.bits[4] = value_2_work.bits[2] * value_1_work.bits[2];
 
-//            result_work.scale = ((value_1.bits[3] & SCALE) >> 16) +
-//                                ((value_2.bits[3] & SCALE) >> 16);
-
             is_overflow(&result_work);
             status = tidy_work_decimal(&result_work);
 
-            *result = work_to_initial(result_work);
+           if(!status) {
+               *result = work_to_initial(result_work);
+           }
         }
      else{
         status = 1;

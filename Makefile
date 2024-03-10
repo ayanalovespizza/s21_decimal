@@ -6,7 +6,7 @@ all: test
 s21_decimal.a:
 	$(CC) $(FLAGS) -c comparison/s21_is_equal.c
 #	$(CC) $(FLAGS) -c another/negate.c
-#	$(CC) $(FLAGS) -c another/*.c
+	$(CC) $(FLAGS) -c another/*.c
 	$(CC) $(FLAGS) -c arithmetic/*.c
 	$(CC) $(FLAGS) -c convertors/*.c
 	$(CC) $(FLAGS) -c extra.c

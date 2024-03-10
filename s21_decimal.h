@@ -78,7 +78,7 @@ void initial_make_null(s21_decimal* value);
 
 int tidy_work_decimal(s21_work_decimal* value);
 int check_mantis(s21_work_decimal value);
-void work_bank_round(s21_work_decimal* value,int last_digit, int full_remainder);
+void work_bank_round(s21_work_decimal* value,unsigned int last_digit, unsigned int full_remainder);
 
 int is_correct_decimal(s21_decimal value);
 int is_infinity(s21_work_decimal value);
