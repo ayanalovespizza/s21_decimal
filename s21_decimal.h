@@ -3,12 +3,13 @@
 
 #include <stdint.h>
 #include "tests/s21_tests.h"
-
+#define PLUS  0x01111111
 #define MINUS 0x80000000     // 10000000 00000000 00000000 00000000
 #define SCALE 0x00ff0000     // 00000000 11111111 00000000 00000000
 #define MAX4BITE 0xffffffff  // 11111111 11111111 11111111 11111111
 #define INCORRECTDECIMAL 0b01111111000000001111111111111111
 #define ISBITSNULL 0x00000000
+
 /*
 bits[0], bits[1], и bits[2] содержат младшие, средние и старшие 32 бита
 96-разрядного целого числа соответственно bits[3] содержит коэффициент
@@ -84,5 +85,7 @@ int is_correct_decimal(s21_decimal value);
 int is_infinity(s21_work_decimal value);
 int is_too_small(s21_work_decimal value);
 
+void give_whole_and_fraction_part(s21_decimal value,s21_decimal* whole,s21_decimal* fraction);
+void divide_whole_parts(s21_decimal whole1, s21_decimal whole2, s21_decimal *result_whole);
 #endif
 
