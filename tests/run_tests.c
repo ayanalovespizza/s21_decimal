@@ -20,6 +20,7 @@ int main() {
                             add_suite(),
                             sub_suite(),
                             mul_suite(),
+                            div_suite(),
                             NULL};
 
   for (int i = 0; decimal_suite[i] != NULL; i++) {  // (&& failed == 0)
