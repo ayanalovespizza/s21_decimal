@@ -87,5 +87,8 @@ int is_too_small(s21_work_decimal value);
 
 void give_whole_and_fraction_part(s21_decimal value,s21_decimal* whole,s21_decimal* fraction);
 void divide_whole_parts(s21_decimal whole1, s21_decimal whole2, s21_decimal *result_whole);
+
+void s21_decimal_division(s21_decimal *quotient, s21_decimal *dividend, s21_decimal *divisor);
+
 #endif
 
