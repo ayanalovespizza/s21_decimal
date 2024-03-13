@@ -23,7 +23,7 @@ int get_fractional_part(s21_work_decimal* result, s21_work_decimal* remainder,
  *         2 - число слишком мало или равно отрицательной бесконечности
  *         3 - деление на 0
  */
-int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
+int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     s21_decimal dec_null = {0, 0, 0, 0};
 
     if (s21_is_equal(value_2, dec_null)) {
@@ -38,6 +38,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
     unsigned int value_1_divisible_sign = 0;
     unsigned int value_2_divider_sign = 0;
     int status = 0;
+    int frac_true = 0;
     s21_work_decimal value_1_divisible =
             initial_to_work(value_1);  // первое число - делимое
     s21_work_decimal value_2_divider =
@@ -53,21 +54,33 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
     value_2_divider_sign = value_2_divider.sign;
 
     bitwise_int.scale = value_1_divisible.scale - value_2_divider.scale;
-
+    //point_to_normal(&value_1_divisible, &value_2_divider);
     // побитовое деление (отдельно получаем целое и остаток от деления)
-    s21_bitwise_division(value_1_divisible, value_2_divider, &bitwise_int,
-                         &bitwise_remainder);
+    frac_true = s21_bitwise_division(value_1_divisible, value_2_divider, &bitwise_int,
+                                     &bitwise_remainder);
 
 
     // теперь осталось собрать воедино целое частное и остаток от деления...
-    int frac_scale = get_fractional_part(&bitwise_int,&bitwise_remainder,value_2_divider);
+    if(frac_true) {
+        int frac_scale = get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
+    }
+
+    if (value_1_divisible_sign!= value_2_divider_sign) {
+        bitwise_int.sign = 1;
+    } else  {
+
+        bitwise_int.sign = 0;
+    }
+    //bitwise_int.scale = value_1_divisible.scale - value_2_divider.scale;
 
     is_overflow(&bitwise_int);
-
+//
     status = tidy_work_decimal(&bitwise_int);
-
+//
     if(!status) {
         *result = work_to_initial(bitwise_int);
+        // result = NULL;
+        //work_to(bitwise_int,result);
     }
 
     return 0;
@@ -80,7 +93,7 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
                          s21_work_decimal *bitwise_int,
                          s21_work_decimal *bitwise_remainder) {
     // не вставила еще одну проверку на нули, так как она была в основной функции
-
+    int res = 0;
     // обнуляем результаты
     work_make_null(bitwise_int);
     work_make_null(bitwise_remainder);
@@ -98,21 +111,38 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
 
     // теперь циклом проходимся по каждому сдвигу
     s21_work_decimal temp = {{0, 0, 0, 0, 0, 0}, 0};
-    for (int i = 0; i < count_shifts + 1; i++) {
-        bitwise_sub(value_1_divisible, value_2_divider, &temp);
-        // сдвигаем целое на 1, чтобы записать в самый младший бит другой результат
-        shift_left(bitwise_int, 1);
+    for (int i = 0; i < count_shifts+1; i++) {
+//            bitwise_sub(value_1_divisible, value_2_divider, &temp);
+//        // сдвигаем целое на 1, чтобы записать в самый младший бит другой результат
+//        // если результат вычитания положительный, то вычитать можно
+//         shift_left(bitwise_int, 1);
+//        if (sub_result == 1) {
+//            // cтавим 1 в самый младший бит
+//            //shift_left(bitwise_int, 1);
+//            s21_big_set_bit(bitwise_int, 0, 1);
+//            // делимым теперь становится остаток от вычитания
+//            value_1_divisible = temp;
+//            // если результат вычитания отрицательный, то вычитать нельзя
+//        } else if (sub_result == 0) {
+//            //shift_left(bitwise_int, 1);
+//            // cтавим 0 в самый младший бит, делимое остается прежним
+//            s21_big_set_bit(bitwise_int, 0, 0);
+//        }
+//        // сдвигаем делитель на 1 вправо
+//        shift_right(&value_2_divider, 1);
 
-        // если результат вычитания положительный, то вычитать можно
-        if (temp.sign == 0) {
-            // cтавим 1 в самый младший бит
-            s21_big_set_bit(&value_1_divisible, 0, 1);
+
+        if(!(is_less_mantis(value_2_divider,value_1_divisible)))
+        {
+            bitwise_sub(value_1_divisible, value_2_divider, &temp);
+            shift_left(bitwise_int, 2);
+            s21_big_set_bit(bitwise_int, 0, 1);
             // делимым теперь становится остаток от вычитания
             value_1_divisible = temp;
-            // если результат вычитания отрицательный, то вычитать нельзя
-        } else if (temp.sign == 1) {
-            // cтавим 0 в самый младший бит, делимое остается прежним
-            s21_big_set_bit(&value_1_divisible, 0, 0);
+        }
+        else {
+            shift_left(bitwise_int, 1);
+            s21_big_set_bit(bitwise_int, 0, 0);
         }
         // сдвигаем делитель на 1 вправо
         shift_right(&value_2_divider, 1);
@@ -120,7 +150,9 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
 
     // после всех сдвигов из цикла у нас есть остаток в делимом, записываем его в
     // остаток
-    *bitwise_remainder = value_1_divisible;
+    if(!(mantis_is_null(value_1_divisible))) {
+        *bitwise_remainder = value_1_divisible;
+    }
 
     return 0;
 }
@@ -139,16 +171,16 @@ int get_max_bit(s21_work_decimal value_1) {
 void sub_shift_left(s21_work_decimal *num, const int shift_value) {
     if (shift_value == 0) return;
     unsigned shift = 0;
-    for (int i = 0; i < (int)(sizeof(s21_work_decimal) / sizeof(unsigned) - 1);
+    for (int i = 0; i < 7;
          i++) {
         unsigned temp = num->bits[i];
         num->bits[i] = num->bits[i] << shift_value;
         num->bits[i] |= shift;
-        shift = temp >> (sizeof(unsigned) * 7 - shift_value);
+        shift = temp >> (sizeof(unsigned) * 6 - shift_value);
     }
 }
 void shift_left(s21_work_decimal *num, const int shift_value) {
-    int max_shift = sizeof(unsigned) * 7 - 1;
+    int max_shift = sizeof(unsigned) * 6 - 1;
     for (int i = 0; i < shift_value / max_shift; ++i) {
         sub_shift_left(num, max_shift);
     }
@@ -165,7 +197,7 @@ void shift_right(s21_work_decimal *num, const int shift_value) {
 
 void sub_shift_right(s21_work_decimal *num, const int shift_value) {
     unsigned shift = 0;
-    for (int i = sizeof(s21_work_decimal) / sizeof(unsigned) - 2; i >= 0; i--) {
+    for (int i = 6; i >=0; i--) {
         const unsigned temp = num->bits[i];
         num->bits[i] = num->bits[i] >> shift_value;
         num->bits[i] |= shift;

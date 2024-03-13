@@ -1,5 +1,5 @@
-CC = gcc
-FLAGS =  -std=c11
+CC = gcc 
+FLAGS =  -std=c11 -g 
 
 all: test
 
@@ -13,14 +13,14 @@ s21_decimal.a:
 	$(CC) $(FLAGS) -c get_and_set_functions/*.c
 	ar rc s21_decimal.a *.o
 
-main: s21_decimal.a
+main: clean s21_decimal.a
 	$(CC) $(FLAGS) main.c s21_decimal.a
 	./a.out
 
 test: clean
 	$(CC) $(FLAGS) -c comparison/*.c --coverage
 	$(CC) $(FLAGS) -c set_sign/*.c --coverage
-#	$(CC) $(FLAGS) -c another/negate.c --coverage
+	$(CC) $(FLAGS) -c another/*.c --coverage
 	$(CC) $(FLAGS) -c another/*.c --coverage
 	$(CC) $(FLAGS) -c arithmetic/s21_add.c arithmetic/s21_sub.c arithmetic/s21_mul.c get_and_set_functions/*.c arithmetic/s21_div.c --coverage
 	$(CC) $(FLAGS) -c convertors/*.c --coverage
