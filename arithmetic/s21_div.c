@@ -39,6 +39,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     unsigned int value_2_divider_sign = 0;
     int status = 0;
     int frac_true = 0;
+    int frac_scale = 0;
     s21_work_decimal value_1_divisible =
             initial_to_work(value_1);  // первое число - делимое
     s21_work_decimal value_2_divider =
@@ -65,7 +66,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
     // теперь осталось собрать воедино целое частное и остаток от деления...
 if( frac_true){
-    get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
+   frac_scale = get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
 }
 
 
@@ -76,12 +77,16 @@ if(scale<0) {
     }
 }
 
+scale = scale + frac_scale;
+
+bitwise_int.scale = scale;
+
     //bitwise_int.scale = value_1_divisible.scale - value_2_divider.scale;
 
     is_overflow(&bitwise_int);
 
 //
-   // status = tidy_work_decimal(&bitwise_int);
+    status = tidy_work_decimal(&bitwise_int);
 //
 
     if (value_1_divisible_sign!= value_2_divider_sign) {
