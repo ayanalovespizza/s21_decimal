@@ -11,6 +11,8 @@ void sub_shift_right(s21_work_decimal *num, const int shift_value);
 void shift_right(s21_work_decimal *num, const int shift_value);
 int get_fractional_part(s21_work_decimal* result, s21_work_decimal* remainder,
                         s21_work_decimal divider);
+void banking_roun(s21_work_decimal* decimal);
+void scale_correction(int* scale, s21_work_decimal* decimal);
 
 /**
  * @brief Деление
@@ -57,7 +59,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
 
 
-  int scale = value_1_divisible.scale - value_2_divider.scale;
+    int scale = value_1_divisible.scale - value_2_divider.scale;
     //point_to_normal(&value_1_divisible, &value_2_divider);
     // побитовое деление (отдельно получаем целое и остаток от деления)
     frac_true = s21_bitwise_division(value_1_divisible, value_2_divider, &bitwise_int,
@@ -65,27 +67,26 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
 
     // теперь осталось собрать воедино целое частное и остаток от деления...
-if(frac_true){
-   frac_scale = get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
-}
-
-
-if(scale<0) {
-    while (scale != 0) {
-        pointleft(&bitwise_int);
-        scale++;
+    if(frac_true){
+        frac_scale = get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
     }
-}
 
-scale = scale + frac_scale;
 
-bitwise_int.scale = scale;
 
-    is_overflow(&bitwise_int);
 
-//
-    status = tidy_work_decimal(&bitwise_int);
-//
+    if(scale<0) {
+        while (scale != 0) {
+            pointleft(&bitwise_int);
+            scale++;
+        }
+    }
+
+    scale = scale + frac_scale;
+
+    bitwise_int.scale = scale;
+    scale_correction(&scale, &bitwise_int);
+    bitwise_int.scale = scale;
+    const int check =  is_overflow(&bitwise_int);
 
     if (value_1_divisible_sign!= value_2_divider_sign) {
         bitwise_int.sign = 1;
@@ -93,9 +94,16 @@ bitwise_int.scale = scale;
         bitwise_int.sign = 0;
     }
 
-    if(!status) {
+    if (check == 0) {
+        tidy_work_decimal(&bitwise_int);
         *result = work_to_initial(bitwise_int);
     }
+
+
+
+//    if(!status) {
+//        *result = work_to_initial(bitwise_int);
+//    }
 
     if (s21_is_equal(value_2, dec_null)) {
         status = 3;
@@ -131,20 +139,22 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
 
     // изначально сдвигаем делитель на вычисленную разницу
     shift_left(&value_2_divider, count_shifts);
-    printf("count = %d\n",count_shifts);
+    //printf("count = %d\n",count_shifts);
     // теперь циклом проходимся по каждому сдвигу
     s21_work_decimal temp = {{0, 0, 0, 0, 0, 0}, 0};
     for (int i = 0; i < count_shifts+1; i++) {
+        bitwise_sub(value_1_divisible, value_2_divider, &temp);
+        shift_left(bitwise_int, 1);
         if(is_greater_or_eq(value_1_divisible,value_2_divider))
-        {   printf("i = %d\n",i);
+        {
             bitwise_sub(value_1_divisible, value_2_divider, &temp);
             shift_left(bitwise_int, 1);
             s21_big_set_bit(bitwise_int, 0, 1);
             // делимым теперь становится остаток от вычитания
             value_1_divisible = temp;
+            //shift_left(bitwise_int, 1);
         }
         else {
-            printf("t:0\n");
             shift_left(bitwise_int, 1);
             s21_big_set_bit(bitwise_int, 0, 0);
         }
@@ -155,31 +165,32 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
     // остаток
     if(!(mantis_is_null(value_1_divisible))) {
         *bitwise_remainder = value_1_divisible;
+        res = 1;
     }
-    return 0;
+    return res;
 }
 
-//int get_max_bit(s21_work_decimal value_1) {
-//    int max_bit_index = 0;
-//    for (int i = (32 * 6)-1; i >= 0; i--) {
-//        if (s21_big_get_bit(value_1, i)) {
-//            max_bit_index = i;
-//            i = -1;
-//        }
-//    }
-//    return max_bit_index;
-//}
-
-int get_max_bit(s21_work_decimal decimal) {
-    int index = -1;
-    for (int i = 32*6;
-         i >= 0 && index == -1; i--) {
-        if (s21_big_get_bit(decimal, i) == 1) {
-            index = i;
+int get_max_bit(s21_work_decimal value_1) {
+    int max_bit_index = 0;
+    for (int i = (32 * 7); i >= 0; i--) {
+        if (s21_big_get_bit(value_1, i)) {
+            max_bit_index = i;
+            i = -1;
         }
     }
-    return index;
+    return max_bit_index;
 }
+
+//int get_max_bit(s21_work_decimal decimal) {
+//    int index = -1;
+//    for (int i = 32*6;
+//         i >= 0 && index == -1; i--) {
+//        if (s21_big_get_bit(decimal, i) == 1) {
+//            index = i;
+//        }
+//    }
+//    return index;
+//}
 
 void sub_shift_left(s21_work_decimal *num, const int shift_value) {
     if (shift_value == 0) return;
@@ -193,6 +204,7 @@ void sub_shift_left(s21_work_decimal *num, const int shift_value) {
     }
 }
 void shift_left(s21_work_decimal *num, const int shift_value) {
+    //int max_shift = 32*6 - 1;
     int max_shift = sizeof(unsigned) * 8 - 1;
     for (int i = 0; i < shift_value / max_shift; ++i) {
         sub_shift_left(num, max_shift);
@@ -201,7 +213,8 @@ void shift_left(s21_work_decimal *num, const int shift_value) {
 }
 
 void shift_right(s21_work_decimal *num, const int shift_value) {
-    const int max_shift = sizeof(unsigned) * 8 - 1;
+    int max_shift = 32*6 - 1;
+    //int max_shift = sizeof(unsigned) * 8 - 1;
     for (int i = 0; i < shift_value / max_shift; ++i) {
         sub_shift_right(num, max_shift);
     }
@@ -225,20 +238,49 @@ int get_fractional_part(s21_work_decimal* result, s21_work_decimal* remainder,
     int scale = 0;
     //s21_mul_big_decimal(*result, ten, result);
     pointleft(result);
-    while (check_mantis(*result) && !mantis_is_null(*remainder)) {
+    while (result->bits[3] == 0  && !mantis_is_null(*remainder)) {
         pointleft(remainder);
         work_make_null(&new_number);
         s21_bitwise_division(*remainder, divider, &new_number, remainder);
         bitwise_add(*result, new_number, result);
         pointleft(result);
         scale++;
+        // printf("dick\n");
     }
     if(!mantis_is_null(*remainder)) {
         pointleft(remainder);
         work_make_null(&new_number);
+        //printf("boobs\n");
         s21_bitwise_division(*remainder, divider, &new_number, remainder);
         bitwise_add(*result, new_number, result);
     }
-    //banking_round(result);
+    banking_roun(result);
+
+    // printf("vagina\n");
     return scale;
+}
+
+void banking_roun(s21_work_decimal* decimal) {
+    s21_work_decimal ten = {{10, 0, 0, 0, 0, 0, 0}};
+    s21_work_decimal one = {{1, 0, 0, 0, 0, 0, 0}};
+    s21_work_decimal remainder = {{0}};
+    s21_bitwise_division(*decimal, ten, decimal, &remainder);
+    if ((remainder.bits[0] == 5 && decimal->bits[0] % 2 == 1) ||
+        remainder.bits[0] > 5) {
+        bitwise_add(*decimal, one, decimal);
+    }
+}
+
+void scale_correction(int* scale, s21_work_decimal* decimal) {
+    s21_work_decimal ten = {{10, 0, 0, 0, 0, 0, 0}};
+    s21_work_decimal one = {{1, 0, 0, 0, 0, 0, 0}};
+    s21_work_decimal remainder = {{0}};
+    while (*scale > 28) {
+        s21_bitwise_division(*decimal, ten, decimal, &remainder);
+        if ((remainder.bits[0] == 5 && decimal->bits[0] % 2 == 1) ||
+            remainder.bits[0] > 5) {
+            bitwise_add(*decimal, one, decimal);
+        }
+        (*scale)--;
+    }
 }
