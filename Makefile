@@ -1,5 +1,5 @@
 CC = gcc 
-FLAGS =  -std=c11 -g 
+FLAGS =  -std=c11 
 
 all: test
 

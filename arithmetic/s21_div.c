@@ -26,14 +26,14 @@ int get_fractional_part(s21_work_decimal* result, s21_work_decimal* remainder,
 int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     s21_decimal dec_null = {0, 0, 0, 0};
 
-    if (s21_is_equal(value_2, dec_null)) {
-        return 3;
-    }
+    // if (s21_is_equal(value_2, dec_null)) {
+    //     return 3;
+    // }
 
-    if (s21_is_equal(value_1, dec_null)) {
-        initial_make_null(result);
-        return 0;
-    }
+    // if (s21_is_equal(value_1, dec_null)) {
+    //     initial_make_null(result);
+    //     return 0;
+    // }
 
     unsigned int value_1_divisible_sign = 0;
     unsigned int value_2_divider_sign = 0;
@@ -53,7 +53,10 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     value_1_divisible_sign = value_1_divisible.sign;
     value_2_divider_sign = value_2_divider.sign;
 
-    bitwise_int.scale = value_1_divisible.scale - value_2_divider.scale;
+
+
+
+  int scale = value_1_divisible.scale - value_2_divider.scale;
     //point_to_normal(&value_1_divisible, &value_2_divider);
     // побитовое деление (отдельно получаем целое и остаток от деления)
     frac_true = s21_bitwise_division(value_1_divisible, value_2_divider, &bitwise_int,
@@ -61,29 +64,48 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
 
     // теперь осталось собрать воедино целое частное и остаток от деления...
-    if(frac_true) {
-        int frac_scale = get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
+if( frac_true){
+    get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
+}
+
+
+if(scale<0) {
+    while (scale != 0) {
+        pointleft(&bitwise_int);
+        scale++;
     }
+}
+
+    //bitwise_int.scale = value_1_divisible.scale - value_2_divider.scale;
+
+    is_overflow(&bitwise_int);
+
+//
+   // status = tidy_work_decimal(&bitwise_int);
+//
 
     if (value_1_divisible_sign!= value_2_divider_sign) {
         bitwise_int.sign = 1;
     } else  {
-
         bitwise_int.sign = 0;
     }
-    //bitwise_int.scale = value_1_divisible.scale - value_2_divider.scale;
 
-    is_overflow(&bitwise_int);
-//
-    status = tidy_work_decimal(&bitwise_int);
-//
     if(!status) {
         *result = work_to_initial(bitwise_int);
         // result = NULL;
         //work_to(bitwise_int,result);
     }
 
-    return 0;
+    if (s21_is_equal(value_2, dec_null)) {
+        status = 3;
+    }
+
+    if (s21_is_equal(value_1, dec_null)) {
+        initial_make_null(result);
+        status = 0;
+    }
+
+    return status;
 }
 
 // пример №1: 15 / 2 = целое 7 и остаток 1
