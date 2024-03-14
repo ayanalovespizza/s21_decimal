@@ -72,7 +72,7 @@ void s21_big_set_sign(s21_work_decimal* value);
 void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
 void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result);
 int is_less_mantis(s21_work_decimal value_1, s21_work_decimal value_2);
-int is_less_or_eq_big(s21_work_decimal value_1, s21_work_decimal value_2);
+int is_greater_or_eq(s21_work_decimal value_1, s21_work_decimal value_2);
 int mantis_is_null(s21_work_decimal value);
 
 void work_make_null(s21_work_decimal* value);

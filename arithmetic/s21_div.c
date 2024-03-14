@@ -152,8 +152,9 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
 //            s21_big_set_bit(bitwise_int, 0, 0);
 //        }
 //        // сдвигаем делитель на 1 вправо
-//        shift_right(&value_2_divider, 1);
-        if((is_less_or_eq_big(value_2_divider,value_1_divisible)))
+//      bitwise_sub(value_1_divisible, value_2_divider, &temp);
+//            shift_left(bitwise_int, 1);
+        if(is_greater_or_eq(value_1_divisible,value_2_divider))
         {
             bitwise_sub(value_1_divisible, value_2_divider, &temp);
             shift_left(bitwise_int, 1);
@@ -162,6 +163,7 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
             value_1_divisible = temp;
         }
         else {
+            printf("fdsfa\n");
             shift_left(bitwise_int, 1);
             s21_big_set_bit(bitwise_int, 0, 0);
         }

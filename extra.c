@@ -101,28 +101,27 @@ for(int i = 6; i >= 0;i--){
 return res;
 }
 
-int is_less_or_eq_big(s21_work_decimal value_1, s21_work_decimal value_2){
+int is_greater_or_eq(s21_work_decimal value_1, s21_work_decimal value_2) {
     int res = 0;
     int not_equal = 0;
-    for(int i = 6; i >= 0;i--)
-    {   if(value_1.bits[i]!=value_2.bits[i]) {
-           not_equal = 1;
-           break;
-        }
-    }
-    if(not_equal){
-    for(int i = 6; i >=0;i--){
-        if(value_1.bits[i]<value_2.bits[i]){
-            res = 1;
-        }
-        else if (value_1.bits[i]>value_2.bits[i]&&!res){
-            res = 0;
+    for (int i = 6; i >= 0; i--) {
+        if (value_1.bits[i] != value_2.bits[i]) {
+            not_equal = 1;
             break;
         }
     }
-  }else{
+    if (not_equal) {
+        for (int i = 6; i >= 0; i--) {
+            if (value_1.bits[i] > value_2.bits[i]) {
+                res = 1;
+                break;
+            } else if (value_1.bits[i] < value_2.bits[i]) {
+                break;
+            }
+        }
+    } else {
         res = 1;
-}
+    }
     return res;
 }
 
