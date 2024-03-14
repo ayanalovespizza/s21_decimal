@@ -65,7 +65,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
 
     // теперь осталось собрать воедино целое частное и остаток от деления...
-if( frac_true){
+if(frac_true){
    frac_scale = get_fractional_part(&bitwise_int, &bitwise_remainder, value_2_divider);
 }
 
@@ -81,8 +81,6 @@ scale = scale + frac_scale;
 
 bitwise_int.scale = scale;
 
-    //bitwise_int.scale = value_1_divisible.scale - value_2_divider.scale;
-
     is_overflow(&bitwise_int);
 
 //
@@ -97,8 +95,6 @@ bitwise_int.scale = scale;
 
     if(!status) {
         *result = work_to_initial(bitwise_int);
-        // result = NULL;
-        //work_to(bitwise_int,result);
     }
 
     if (s21_is_equal(value_2, dec_null)) {
@@ -157,12 +153,10 @@ int s21_bitwise_division(s21_work_decimal value_1_divisible,
 //        }
 //        // сдвигаем делитель на 1 вправо
 //        shift_right(&value_2_divider, 1);
-
-
-        if(!(is_less_mantis(value_2_divider,value_1_divisible)))
+        if((is_less_or_eq_big(value_2_divider,value_1_divisible)))
         {
             bitwise_sub(value_1_divisible, value_2_divider, &temp);
-            shift_left(bitwise_int, 2);
+            shift_left(bitwise_int, 1);
             s21_big_set_bit(bitwise_int, 0, 1);
             // делимым теперь становится остаток от вычитания
             value_1_divisible = temp;

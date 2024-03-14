@@ -85,12 +85,10 @@ void point_to_normal(s21_work_decimal *value_1, s21_work_decimal *value_2) {
 }
 
 //Сравнение мантис расширенного децимала
-//Если res = 0, то мантиса первого числа не меньше 
+//Если res = 0, то мантиса первого числа больше или равны
 //Если res = 1, то мантиса первого меньше 
 int is_less_mantis(s21_work_decimal value_1, s21_work_decimal value_2){
 int res = 0;
-int temp_1 = 0;
-int temp_2 = 0;
 for(int i = 6; i >= 0;i--){
   if(value_1.bits[i]<value_2.bits[i]){
     res = 1;
@@ -99,9 +97,33 @@ for(int i = 6; i >= 0;i--){
     res = 0;
     break;
   }
-  
 }
 return res;
+}
+
+int is_less_or_eq_big(s21_work_decimal value_1, s21_work_decimal value_2){
+    int res = 0;
+    int not_equal = 0;
+    for(int i = 6; i >= 0;i--)
+    {   if(value_1.bits[i]!=value_2.bits[i]) {
+           not_equal = 1;
+           break;
+        }
+    }
+    if(not_equal){
+    for(int i = 6; i >=0;i--){
+        if(value_1.bits[i]<value_2.bits[i]){
+            res = 1;
+        }
+        else if (value_1.bits[i]>value_2.bits[i]&&!res){
+            res = 0;
+            break;
+        }
+    }
+  }else{
+        res = 1;
+}
+    return res;
 }
 
 //функция обнуления расширенного децимала
