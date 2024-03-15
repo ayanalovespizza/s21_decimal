@@ -28,13 +28,18 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
 
     point_to_normal(&value_1_work, &value_2_work);
 
-    for (int i = 6; i >= 0; i--) {
+    for (int i = 2; i >= 0; i--) {
+      // если в верхнем int первый децимал меньше то
+      // значит и весь первый децимал меньше второго
       if (value_1_work.bits[i] < value_2_work.bits[i]) {
         result = 1;
-        // break;
-      } else if (value_1_work.bits[i] >= value_2_work.bits[i]) {
+        i = -1;
+
+        // если в верхнем int первый децимал больше то
+        // значит и весь первый децимал больше второго
+      } else if (value_1_work.bits[i] > value_2_work.bits[i]) {
         result = 0;
-        // break;
+        i = -1;
       }
     }
 

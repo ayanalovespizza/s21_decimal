@@ -27,6 +27,6 @@ Suite *add_suite();
 Suite *sub_suite();
 
 Suite *mul_suite();
-Suite *div_suite();
+// Suite *div_suite();
 
 #endif

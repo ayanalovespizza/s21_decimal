@@ -95,8 +95,8 @@ START_TEST(is_less_test10) {
   s21_decimal value_1 = {0x00000000, 1, 0x00000000, MINUS};
   s21_decimal value_2 = {1, 0x00000000, 0x00000000, MINUS};
 
-  ck_assert_int_eq(s21_is_less(value_1, value_2), 0);
-  ck_assert_int_eq(s21_is_less(value_2, value_1), 1);
+  ck_assert_int_eq(s21_is_less(value_1, value_2), 1);
+  ck_assert_int_eq(s21_is_less(value_2, value_1), 0);
 }
 END_TEST
 
@@ -215,24 +215,24 @@ START_TEST(is_less_test22) {
 }
 END_TEST
 
-// START_TEST(is_less_test23) {
-//   s21_decimal src1, src2;
-//   // src1 = -9798956154578676.797564534156;
-//   // src2 = -2156878451.854764;
+START_TEST(is_less_test23) {
+  s21_decimal src1, src2;
+  // src1 = -9798956154578676.797564534156;
+  // src2 = -2156878451.854764;
 
-//   src1.bits[0] = 0b01010100010000000011110110001100;
-//   src1.bits[1] = 0b10001011010100100000010101011001;
-//   src1.bits[2] = 0b00011111101010011000000110101101;
-//   src1.bits[3] = 0b10000000000011000000000000000000;
+  src1.bits[0] = 0b01010100010000000011110110001100;
+  src1.bits[1] = 0b10001011010100100000010101011001;
+  src1.bits[2] = 0b00011111101010011000000110101101;
+  src1.bits[3] = 0b10000000000011000000000000000000;
 
-//   src2.bits[0] = 0b01100101111100100100110110101100;
-//   src2.bits[1] = 0b00000000000001111010100110101011;
-//   src2.bits[2] = 0b00000000000000000000000000000000;
-//   src2.bits[3] = 0b10000000000001100000000000000000;
+  src2.bits[0] = 0b01100101111100100100110110101100;
+  src2.bits[1] = 0b00000000000001111010100110101011;
+  src2.bits[2] = 0b00000000000000000000000000000000;
+  src2.bits[3] = 0b10000000000001100000000000000000;
 
-//   ck_assert_int_eq(TRUE, s21_is_less(src1, src2));
-// }
-// END_TEST
+  ck_assert_int_eq(TRUE, s21_is_less(src1, src2));
+}
+END_TEST
 
 START_TEST(is_less_test24) {
   s21_decimal src1, src2;
@@ -515,23 +515,23 @@ START_TEST(is_less_test52) {
 }
 END_TEST
 
-// START_TEST(is_less_test53) {
-//   // 52818775009509558395695966890
-//   s21_decimal val1 = {{0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA, 0x0}};
-//   // 1.2297829382473034410
-//   s21_decimal val2 = {{0xAAAAAAAA, 0xAAAAAAAA, 0x0, 0x130000}};
+START_TEST(is_less_test53) {
+  // 52818775009509558395695966890
+  s21_decimal val1 = {{0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA, 0x0}};
+  // 1.2297829382473034410
+  s21_decimal val2 = {{0xAAAAAAAA, 0xAAAAAAAA, 0x0, 0x130000}};
 
-//   ck_assert_int_eq(FALSE, s21_is_less(val1, val2));
-// }
+  ck_assert_int_eq(FALSE, s21_is_less(val1, val2));
+}
 
-// START_TEST(is_less_test54) {
-//   // 52818775009509558395695966890
-//   s21_decimal val1 = {{0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA, 0x0}};
-//   // 1.2297829382473034410
-//   s21_decimal val2 = {{0xAAAAAAAA, 0xAAAAAAAA, 0x0, 0x130000}};
+START_TEST(is_less_test54) {
+  // 52818775009509558395695966890
+  s21_decimal val1 = {{0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA, 0x0}};
+  // 1.2297829382473034410
+  s21_decimal val2 = {{0xAAAAAAAA, 0xAAAAAAAA, 0x0, 0x130000}};
 
-//   ck_assert_int_eq(TRUE, s21_is_less(val2, val1));
-// }
+  ck_assert_int_eq(TRUE, s21_is_less(val2, val1));
+}
 
 START_TEST(is_less_test55) {
   // -52818775009509558395695966890
@@ -650,7 +650,7 @@ Suite *is_less_suite() {
   tcase_add_test(is_less_tests, is_less_test20);
   tcase_add_test(is_less_tests, is_less_test21);
   tcase_add_test(is_less_tests, is_less_test22);
-  // tcase_add_test(is_less_tests, is_less_test23);
+  tcase_add_test(is_less_tests, is_less_test23);
   tcase_add_test(is_less_tests, is_less_test24);
   tcase_add_test(is_less_tests, is_less_test25);
   tcase_add_test(is_less_tests, is_less_test26);
@@ -680,8 +680,8 @@ Suite *is_less_suite() {
   tcase_add_test(is_less_tests, is_less_test50);
   tcase_add_test(is_less_tests, is_less_test51);
   tcase_add_test(is_less_tests, is_less_test52);
-  // tcase_add_test(is_less_tests, is_less_test53);
-  // tcase_add_test(is_less_tests, is_less_test54);
+  tcase_add_test(is_less_tests, is_less_test53);
+  tcase_add_test(is_less_tests, is_less_test54);
   tcase_add_test(is_less_tests, is_less_test55);
   tcase_add_test(is_less_tests, is_less_test56);
   tcase_add_test(is_less_tests, is_less_test57);

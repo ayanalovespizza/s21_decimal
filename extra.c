@@ -267,3 +267,10 @@ int is_too_small(s21_work_decimal value) {
   }
   return result;
 }
+
+void s21_set_bit(s21_decimal *num, int index, int bit) {
+  if (bit == 1)
+    num->bits[index / 32] |= (1u << (index % 32));  // установить 1
+  else
+    num->bits[index / 32] &= ~(1u << (index % 32));  // установить 0
+}

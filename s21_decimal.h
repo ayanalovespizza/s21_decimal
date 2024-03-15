@@ -82,6 +82,7 @@ int s21_big_get_bit(s21_work_decimal value, int position_bit);
 void s21_big_set_bit(s21_work_decimal *value, int position_bit,
                      unsigned value_bit);
 void s21_set_sign(s21_decimal *value);
+void s21_set_bit(s21_decimal *num, int index, int bit);
 
 void bitwise_add(s21_work_decimal value_1, s21_work_decimal value_2,
                  s21_work_decimal *result);
