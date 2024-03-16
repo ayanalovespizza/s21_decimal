@@ -9,7 +9,6 @@ s21_work_decimal initial_to_work(s21_decimal decimal) {
   result.bits[2] = decimal.bits[2] & MAX4BITE;
   result.scale = (decimal.bits[3] & SCALE) >> 16;
   result.sign = (decimal.bits[3] & MINUS) >> 31;
-  result.sign = (decimal.bits[3] & MINUS) >> 31;
   return result;
 }
 
@@ -194,7 +193,7 @@ void work_bank_round(s21_work_decimal* value,unsigned int last_digit, unsigned i
 
 void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result){
     unsigned memo = 0;
-    for(int i = 0; i <32*6;i++){
+    for(int i = 0; i <32*7;i++){
      unsigned  result_bit = s21_big_get_bit(value_1,i)+s21_big_get_bit(value_2,i)+memo;
      memo = result_bit /2;
      result_bit = result_bit % 2;
@@ -204,7 +203,7 @@ void bitwise_add(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_deci
 
 void bitwise_sub(s21_work_decimal value_1,s21_work_decimal value_2,s21_work_decimal* result){
    unsigned memo = 0;
-    for(int i = 0; i <32*6;i++){
+    for(int i = 0; i <32*7;i++){
      int result_bit = s21_big_get_bit(value_1,i)-s21_big_get_bit(value_2,i)-memo;
      if(result_bit<0){
       memo = 1;
@@ -230,6 +229,16 @@ int mantis_is_null(s21_work_decimal value){
     return res;
 }
 
+int mantis_is_null_init(s21_decimal value){
+    int res = 1;
+    for(int i=0;i<3;i++){
+        if(value.bits[i]!=0){
+            res = 0;
+            break;
+        }
+    }
+    return res;
+}
 
 int is_correct_decimal(s21_decimal value) {
     int res = 1;

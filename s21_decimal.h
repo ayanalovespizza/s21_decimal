@@ -9,6 +9,8 @@
 #define MAX4BITE 0xffffffff  // 11111111 11111111 11111111 11111111
 #define INCORRECTDECIMAL 0b01111111000000001111111111111111
 #define ISBITSNULL 0x00000000
+#define BIG_DECIMAL_SIZE (int)(sizeof(s21_work_decimal) / sizeof(unsigned))
+#define DECIMAL_SIZE (int)(sizeof(s21_decimal) / sizeof(unsigned))
 
 /*
 bits[0], bits[1], и bits[2] содержат младшие, средние и старшие 32 бита
@@ -90,6 +92,6 @@ void give_whole_and_fraction_part(s21_decimal value,s21_decimal* whole,s21_decim
 void divide_whole_parts(s21_decimal whole1, s21_decimal whole2, s21_decimal *result_whole);
 
 void s21_decimal_division(s21_decimal *quotient, s21_decimal *dividend, s21_decimal *divisor);
-
+int mantis_is_null_init(s21_decimal value);
 #endif
 
